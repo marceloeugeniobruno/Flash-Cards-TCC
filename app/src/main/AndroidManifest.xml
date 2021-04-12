@@ -9,8 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlashCards">
-        <activity android:name=".activity.InicialActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.EsqueciSenhaActivity"></activity>
+        <activity android:name=".activity.CadastroActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity
+            android:name=".activity.InicialActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

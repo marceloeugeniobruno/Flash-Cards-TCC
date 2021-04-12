@@ -7,9 +7,21 @@
     <string name="ini_entrar">Entrar</string>
 
     <!-- Textos da tela login -->
-
+    <string name="log_decricaoImagem">Logo do projeto</string>
+    <string name="log_btn_entrar">Entrar</string>
+    <string name="log_btn_voltar">Voltar</string>
+    <string name="log_edt_email">E-mail</string>
+    <string name="log_edt_senha">Senha</string>
+    <string name="log_txt_esqueci_senha">Esqueci a Senha</string>
 
     <!-- Textos da tela cadastro -->
+
+    <string name="cad_decricaoImagem">Logo do projeto</string>
+    <string name="cad_btn_voltar">Voltar</string>
+    <string name="cad_btn_cadastrar">Cadastrar</string>
+    <string name="cad_edt_nome">Nome</string>
+    <string name="cad_edt_email">E-mail</string>
+    <string name="cad_edt_senha">Senha</string>
 
 
     <!-- Textos da tela esqueci senha -->
