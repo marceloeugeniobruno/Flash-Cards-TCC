@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Flash Cards</string>
+
+    <!-- Textos da tela inicial -->
+    <string name="ini_decricaoImagem">Logo do projeto</string>
+    <string name="ini_btn_cadastrar">Cadastrar</string>
+    <string name="ini_entrar">Entrar</string>
+
+    <!-- Textos da tela login -->
+
+
+    <!-- Textos da tela cadastro -->
+
+
+    <!-- Textos da tela esqueci senha -->
+
+
+    <!-- Textos da tela Principal -->
+
+
 </resources>
