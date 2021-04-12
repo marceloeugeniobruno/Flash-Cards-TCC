@@ -15,7 +15,6 @@
     <string name="log_txt_esqueci_senha">Esqueci a Senha</string>
 
     <!-- Textos da tela cadastro -->
-
     <string name="cad_decricaoImagem">Logo do projeto</string>
     <string name="cad_btn_voltar">Voltar</string>
     <string name="cad_btn_cadastrar">Cadastrar</string>
@@ -23,9 +22,11 @@
     <string name="cad_edt_email">E-mail</string>
     <string name="cad_edt_senha">Senha</string>
 
-
     <!-- Textos da tela esqueci senha -->
-
+    <string name="eqs_decricaoImagem">Logo do projeto</string>
+    <string name="eqs_edt_email">E-mail</string>
+    <string name="eqs_btn_enviar_solicitacao">Recuperar Senha</string>
+    <string name="eqs_btn_voltar">Voltar</string>
 
     <!-- Textos da tela Principal -->
 
