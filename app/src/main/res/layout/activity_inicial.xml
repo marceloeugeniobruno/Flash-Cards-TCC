@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fundo"
     tools:context=".activity.InicialActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -31,6 +32,7 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:background="@drawable/botoes"
         android:onClick="logarUsuario"
         android:text="@string/ini_entrar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,6 +48,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:background="@drawable/botoes"
         android:onClick="criarUsuario"
         android:text="@string/ini_btn_cadastrar"
         app:layout_constraintEnd_toEndOf="parent"
