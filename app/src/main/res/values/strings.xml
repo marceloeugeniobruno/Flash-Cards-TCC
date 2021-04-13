@@ -4,7 +4,7 @@
     <!-- Textos da tela inicial -->
     <string name="ini_decricaoImagem">Logo do projeto</string>
     <string name="ini_btn_cadastrar">Cadastrar</string>
-    <string name="ini_entrar">Entrar</string>
+    <string name="ini_entrar">Logar</string>
 
     <!-- Textos da tela login -->
     <string name="log_decricaoImagem">Logo do projeto</string>
@@ -21,6 +21,18 @@
     <string name="cad_edt_nome">Nome</string>
     <string name="cad_edt_email">E-mail</string>
     <string name="cad_edt_senha">Senha</string>
+
+    <string name="cad_msg_nomenaopreechido">Nome não informado!</string>
+    <string name="cad_msg_emailnaopreechido">E-mail não informado!</string>
+    <string name="cad_msg_senhanaopreechido">Senha não informada!</string>
+    <string name="cad_msg_sucesso">Cadastro realizado com sucesso!</string>
+
+    <string name="cad_exc_senhafraca">Digite uma senha mais Forte!</string>
+    <string name="cad_exc_emailinvalido">Por favor Digite um email valido!</string>
+    <string name="cad_exc_usuexistente">Usuário já cadastrado!</string>
+    <string name="cad_exc_erro">Erro ao cadastrar usuário!</string>
+
+
 
     <!-- Textos da tela esqueci senha -->
     <string name="eqs_decricaoImagem">Logo do projeto</string>
