@@ -10,13 +10,12 @@
         android:id="@+id/imageView2"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_marginTop="108dp"
+        android:contentDescription="@string/log_decricaoImagem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo"
-        android:contentDescription="@string/log_decricaoImagem" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        app:srcCompat="@drawable/logo" />
 
     <Button
         android:id="@+id/log_btn_entrar"
@@ -41,6 +40,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:onClick="loginFinalizar"
         android:text="@string/log_btn_voltar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +56,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:gravity="center_horizontal"
+        android:onClick="esquiciSenha"
         android:text="@string/log_txt_esqueci_senha"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,10 +105,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/log_edt_email" />
 
-
-
-
-
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

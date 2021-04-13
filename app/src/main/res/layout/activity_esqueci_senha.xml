@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/logo" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName6"
+        android:id="@+id/eqs_edt_email"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="32dp"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/eqs_btn_solicitar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -50,10 +50,10 @@
         android:text="@string/eqs_btn_enviar_solicitacao"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6" />
+        app:layout_constraintTop_toBottomOf="@+id/eqs_edt_email" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/eqs_btn_voltar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -61,10 +61,11 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:onClick="esqueciFinalizar"
         android:text="@string/eqs_btn_voltar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
+        app:layout_constraintTop_toBottomOf="@+id/eqs_btn_solicitar" />
 
 
 
