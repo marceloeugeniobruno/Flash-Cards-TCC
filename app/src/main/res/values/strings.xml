@@ -14,6 +14,9 @@
     <string name="log_edt_senha">Senha</string>
     <string name="log_txt_esqueci_senha">Esqueci a Senha</string>
 
+    <string name="log_msg_emailnaopreechido">E-mail não informado!</string>
+    <string name="log_msg_senhanaopreechido">Senha não informada!</string>
+
     <!-- Textos da tela cadastro -->
     <string name="cad_decricaoImagem">Logo do projeto</string>
     <string name="cad_btn_voltar">Voltar</string>
