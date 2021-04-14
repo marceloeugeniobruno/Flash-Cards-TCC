@@ -3,6 +3,7 @@ package com.example.flashcards.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,11 @@ public class CadastroActivity extends AppCompatActivity {
         finish();
     }
 
+    public void logarUsu(){
+        Intent logarUsu = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(logarUsu);
+    }
+
     public void cadastrarUsuario(Usuario usuario){
         autenticacao = ConfiguracaoFirebase.getAuth();
         autenticacao.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha())
@@ -48,7 +54,9 @@ public class CadastroActivity extends AppCompatActivity {
                     Toast.makeText(CadastroActivity.this,
                             R.string.cad_msg_sucesso,
                             Toast.LENGTH_LONG).show();
+                    logarUsu();
                     finish();
+
 
                 }else{
                     String execao = "";
