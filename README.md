@@ -8,9 +8,21 @@ O suporte para idomas, é uma modo de estudos de textos com áudio, que podem se
 Telas em funcionamento:
 
 -> Tela Inicial
+
 -> Tela Cadastro
+
 -> Tela Loguin
 
+Telas em contrução
+
+-> Tela principal
+
+Criado o layaut da tela principal e o acinamento do botão para criar um novo baralho
+
+-> Tela Criar Baralho
+
+codificando
+
 No momemto, estamos trabalhando na tela principal do projeto.
-que terá apenas uma recicler view. com a listagem dos boaralhos e um botão para criar um novo baraalho.
+que terá apenas uma recicler view. com a listagem dos baralhos e um botão para criar um novo baralho.
  

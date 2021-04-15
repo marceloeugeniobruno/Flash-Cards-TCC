@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.flashcards.R;
 
@@ -18,9 +19,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
 
     }
 
@@ -46,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
     public void naologado(){
         Intent inicial = new Intent(getApplicationContext(), InicialActivity.class);
         startActivity(inicial);
+    }
+
+    public void criarBaralho(View view){
+        Intent criarDeck = new Intent(getApplicationContext(), CriarBaralhoActivity.class);
+        startActivity(criarDeck);
     }
 
 }
