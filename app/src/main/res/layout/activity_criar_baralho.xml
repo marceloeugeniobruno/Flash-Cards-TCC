@@ -7,4 +7,147 @@
     android:background="@drawable/fundo"
     tools:context=".activity.CriarBaralhoActivity">
 
+    <EditText
+        android:id="@+id/crb_edt_nome_baralho"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/borda_arredondada"
+        android:ems="10"
+        android:hint="@string/crb_edt_nome_baralho"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/borda_arredondada"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crb_edt_nome_baralho">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/crb_tex_tipo"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/crb_rdb_fc_com"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:checked="true"
+            android:text="@string/crb_rdb_fc_comum" />
+
+        <RadioButton
+            android:id="@+id/crb_rdb_fc_id"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/crb_rdb_fcid" />
+
+        <RadioButton
+            android:id="@+id/crb_rdb_fc_id_ing"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/crb_rdb_fciding" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/borda_arredondada"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/crb_tex_alertas"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/crb_rdb_al_sem"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:checked="true"
+            android:text="@string/crb_rdb_sem" />
+
+        <RadioButton
+            android:id="@+id/crb_rdb_al_lem"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/crb_rdb_lem" />
+
+        <RadioButton
+            android:id="@+id/fcrb_rdb_al_alm"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/crb_rdb_alm" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:text="@string/crb_btn_voltar"
+            app:backgroundTint="@color/azul_claro" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_weight="1"
+            android:text="@string/crb_btn_criar"
+            app:backgroundTint="@color/azul_claro" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

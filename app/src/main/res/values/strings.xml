@@ -46,4 +46,25 @@
     <string name="pri_btn_criar_baralho">Criar Baralho</string>
 
 
+    <!-- Textos da tela Criar Baralho -->
+
+    <string name="crb_edt_nome_baralho">Nome do Baralho</string>
+
+    <string name="crb_tex_tipo">Tipo do Baralho</string>
+    <string name="crb_tex_alertas">Alertas</string>
+
+    <string name="crb_rdb_fc_comum">Flash Cards (FC) comum</string>
+    <string name="crb_rdb_fcid">FC Idiomas</string>
+    <string name="crb_rdb_fciding">FC Idiomas (ING)</string>
+    <string name="crb_rdb_sem">Sem Lembretes ou Alarmes</string>
+    <string name="crb_rdb_lem">Apenas Lembretes</string>
+    <string name="crb_rdb_alm">Alarme</string>
+
+    <string name="crb_btn_voltar">Voltar</string>
+    <string name="crb_btn_criar">Criar</string>
+
+
+
+
+
 </resources>
