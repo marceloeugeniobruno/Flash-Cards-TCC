@@ -3,7 +3,9 @@ package com.example.flashcards.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -54,6 +56,11 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            SharedPreferences preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
+                            @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean("logado", true);
+                            editor.commit();
+
                             abrirtelaPrincipal();
                             finish();
 
