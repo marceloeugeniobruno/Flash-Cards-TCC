@@ -52,6 +52,8 @@
 
     <string name="crb_tex_tipo">Tipo do Baralho</string>
     <string name="crb_tex_alertas">Alertas</string>
+    <string name="crb_tex_hora">Hora</string>
+    <string name="crb_tex_minutos">Minuto</string>
 
     <string name="crb_rdb_fc_comum">Flash Cards (FC) comum</string>
     <string name="crb_rdb_fcid">FC Idiomas</string>
@@ -62,9 +64,6 @@
 
     <string name="crb_btn_voltar">Voltar</string>
     <string name="crb_btn_criar">Criar</string>
-
-
-
 
 
 </resources>
