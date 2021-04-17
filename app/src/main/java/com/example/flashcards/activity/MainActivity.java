@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.flashcards.R;
+import com.example.flashcards.config.ConfiguracaoFirebase;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
     protected final static String ARQUIVO_PREFERENCIAS = "arquivoPreferencia";
+    private FirebaseAuth autenticacao;
 
 
     @Override
@@ -20,35 +23,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        verificarUsuarioLogado();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //TODO: criar algoritimo de usuário logado
-        SharedPreferences preferences = getSharedPreferences(ARQUIVO_PREFERENCIAS, 0);
-        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = preferences.edit();
 
-        if (preferences.contains("logado")){
-            boolean logado = preferences.getBoolean("logado", false);
-            if (!logado){
-                naologado();
-            }
-        }else{
-            editor.putBoolean("logado", false);
-            editor.commit();
-            naologado();
+    public void verificarUsuarioLogado(){
+        autenticacao = ConfiguracaoFirebase.getAuth();
+        if(autenticacao.getCurrentUser() == null){
+            Intent inicial = new Intent(getApplicationContext(), InicialActivity.class);
+            startActivity(inicial);
         }
+
     }
 
-    public void naologado(){
-        Intent inicial = new Intent(getApplicationContext(), InicialActivity.class);
+    public void criarcaodeBaralho(View view){
+        Intent inicial = new Intent(getApplicationContext(), CriarBaralhoActivity.class);
         startActivity(inicial);
-    }
-
-    public void criarBaralho(View view){
-        Intent criarDeck = new Intent(getApplicationContext(), CriarBaralhoActivity.class);
-        startActivity(criarDeck);
     }
 
 }

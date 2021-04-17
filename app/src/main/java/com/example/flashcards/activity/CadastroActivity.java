@@ -40,7 +40,7 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     public void logarUsu(){
-        Intent logarUsu = new Intent(getApplicationContext(), LoginActivity.class);
+        Intent logarUsu = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(logarUsu);
     }
 

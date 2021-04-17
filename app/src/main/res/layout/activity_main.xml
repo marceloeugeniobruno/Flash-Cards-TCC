@@ -43,7 +43,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:background="@drawable/botoes"
-        android:onClick="criarBaralho"
+        android:onClick="criarcaodeBaralho"
         android:text="@string/pri_btn_criar_baralho"
         app:backgroundTint="@color/azul_claro"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
