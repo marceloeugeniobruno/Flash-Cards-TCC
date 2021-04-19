@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlashCards">
-        <activity android:name=".activity.CriarBaralhoActivity"/>
+        <activity android:name=".activity.InformacaoIdiomasIngActivity"></activity>
+        <activity android:name=".activity.InformacaoIdiomasActivity" />
+        <activity android:name=".activity.BaralhoIdiomasActivity" />
+        <activity android:name=".activity.BaralhoComumActivity" />
+        <activity android:name=".activity.CriarBaralhoActivity" />
         <activity
             android:name=".activity.EsqueciSenhaActivity"
             android:theme="@style/Theme.FlashCardsLogim" />

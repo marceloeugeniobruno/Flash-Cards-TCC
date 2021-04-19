@@ -65,5 +65,7 @@
     <string name="crb_btn_voltar">Voltar</string>
     <string name="crb_btn_criar">Criar</string>
 
+    <string name="crb_toast_nomenaoinformado">Nome do baralho não Informado</string>
+
 
 </resources>

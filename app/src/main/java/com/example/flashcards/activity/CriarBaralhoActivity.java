@@ -73,18 +73,24 @@ public class CriarBaralhoActivity extends AppCompatActivity {
             this.baralho = new Baralho();
             this.baralho.setNome(editTextNome.getText().toString());
             if (rdFcCom.isChecked()){
+                finish();
+                Intent baralhoComum = new Intent(getApplicationContext(), BaralhoComumActivity.class);
+                startActivity(baralhoComum);
 
             }else if(rdFcId.isChecked()||rdFcIdIng.isChecked()){
-
+                if(rdFcId.isChecked()){
+                    Intent infoc = new Intent(getApplicationContext(), InformacaoIdiomasActivity.class);
+                    startActivity(infoc);
+                }else if(rdFcIdIng.isChecked()){
+                    Intent infIng = new Intent(getApplicationContext(), InformacaoIdiomasIngActivity.class);
+                    startActivity(infIng);
+                }
             }
-
-
         }else{
             Toast.makeText(CriarBaralhoActivity.this,
-                    "Nome do baralho não Informado",
+                    R.string.crb_toast_nomenaoinformado,
                     Toast.LENGTH_LONG).show();
         }
-
     }
 
     public void criarAlarme(){
