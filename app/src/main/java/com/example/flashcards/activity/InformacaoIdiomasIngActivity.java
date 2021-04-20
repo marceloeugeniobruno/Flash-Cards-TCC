@@ -2,7 +2,9 @@ package com.example.flashcards.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.flashcards.R;
 
@@ -13,4 +15,21 @@ public class InformacaoIdiomasIngActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informacao_idiomas_ing);
     }
+
+    public void iiiVoltar(View view){
+        finish();
+        Intent principal = new Intent(InformacaoIdiomasIngActivity.this,
+                CriarBaralhoActivity.class);
+        startActivity(principal);
+    }
+
+    public void iiiAvancar(View view){
+        finish();
+        Intent principal = new Intent(InformacaoIdiomasIngActivity.this,
+                InformacaoIdiomasActivity.class);
+        startActivity(principal);
+    }
+
+
+
 }

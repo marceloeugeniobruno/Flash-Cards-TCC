@@ -70,6 +70,7 @@ public class CriarBaralhoActivity extends AppCompatActivity {
     public void criarBaralho(View view){
         String nome = editTextNome.getText().toString();
         if (!nome.isEmpty()){
+            //TODO: criar verificador de nome
             this.baralho = new Baralho();
             this.baralho.setNome(editTextNome.getText().toString());
             if (rdFcCom.isChecked()){
@@ -91,6 +92,11 @@ public class CriarBaralhoActivity extends AppCompatActivity {
                     R.string.crb_toast_nomenaoinformado,
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    public boolean verifiicarNome(String nome){
+
+        return true;
     }
 
     public void criarAlarme(){

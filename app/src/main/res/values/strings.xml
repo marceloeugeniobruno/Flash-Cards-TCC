@@ -67,5 +67,24 @@
 
     <string name="crb_toast_nomenaoinformado">Nome do baralho não Informado</string>
 
+    <!-- Textos da tela informações de criação de deck com idoma ingles -->
+    <string name="iii_txt_sugentao">Sugestão</string>
+    <string name="iii_txt_texto">Como escolheste o programa de flashcards que para o idioma inglês.
+    E como os textos com áudios nativos do programa, são etraídos da série O Pricipe Dragão.
+        Sugerimos que assista a série dublada ou até legendada. Porque o programa irá
+        eventualmente pedir para assitir um episódio da série, no idioma original (ingles) e sem
+        legendas. </string>
+    <string name="iii_btn_voltar">Voltar</string>
+    <string name="iii_btn_avançar">Avançar</string>
+
+    <!-- Textos da tela informações de criação de deck com idoma -->
+
+    <string name="iid_btn_avançar">Avançar</string>
+    <string name="iid_btn_titulo">O que são Grupos</string>
+    <string name="iid_btn_texto">Grupos de cartas, é um texto fragmentado em várias frases menores.
+                                O programa de estudo irá apresentar apenas um grupo de cartas por dia.
+                                Após a sequência de estudo desse texto. As frases fragmentadas
+                                serão adicionados no baralho.</string>
+
 
 </resources>
