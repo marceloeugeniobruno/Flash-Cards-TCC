@@ -81,22 +81,26 @@ public class CriarBaralhoActivity extends AppCompatActivity {
                 //TODO: Criar método de criar alarme ou lembrete
                 if (rdFcCom.isChecked()) {
                     baralho.setTipo("Comum");
-                    Toast.makeText(CriarBaralhoActivity.this, "Era para ir para oo fire Base", Toast.LENGTH_LONG).show();
                     firebase.child(email).child(nome).setValue(baralho);
-                    //finish();
-                    //Intent baralhoComum = new Intent(getApplicationContext(), BaralhoComumActivity.class);
-                    //startActivity(baralhoComum);
+                    finish();
+                    Intent baralhoComum = new Intent(getApplicationContext(), BaralhoComumActivity.class);
+                    baralhoComum.putExtra("nomeBaralho", nome);
+                    startActivity(baralhoComum);
                 } else if (rdFcId.isChecked() || rdFcIdIng.isChecked()) {
                     baralho.setTipo("Idiomas");
                     if (rdFcId.isChecked()) {
                         firebase.child(email).child(nome).setValue(baralho);
-                        //Intent infoc = new Intent(getApplicationContext(), InformacaoIdiomasActivity.class);
-                        //startActivity(infoc);
+                        finish();
+                        Intent infoc = new Intent(getApplicationContext(), InformacaoIdiomasActivity.class);
+                        infoc.putExtra("nomeBaralho", nome);
+                        startActivity(infoc);
                     } else if (rdFcIdIng.isChecked()) {
                         firebase.child(email).child(nome).setValue(baralho);
                         //TODO: Criar método para baixar grupos nativos do app
-                        //Intent infIng = new Intent(getApplicationContext(), InformacaoIdiomasIngActivity.class);
-                        //startActivity(infIng);
+                        Intent infIng = new Intent(getApplicationContext(), InformacaoIdiomasIngActivity.class);
+                        finish();
+                        infIng.putExtra("nomeBaralho", nome);
+                        startActivity(infIng);
                     }
                 }
             }

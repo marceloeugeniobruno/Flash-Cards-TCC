@@ -16,12 +16,6 @@ public class InformacaoIdiomasIngActivity extends AppCompatActivity {
         setContentView(R.layout.activity_informacao_idiomas_ing);
     }
 
-    public void iiiVoltar(View view){
-        finish();
-        Intent principal = new Intent(InformacaoIdiomasIngActivity.this,
-                CriarBaralhoActivity.class);
-        startActivity(principal);
-    }
 
     public void iiiAvancar(View view){
         finish();
@@ -29,7 +23,4 @@ public class InformacaoIdiomasIngActivity extends AppCompatActivity {
                 InformacaoIdiomasActivity.class);
         startActivity(principal);
     }
-
-
-
 }

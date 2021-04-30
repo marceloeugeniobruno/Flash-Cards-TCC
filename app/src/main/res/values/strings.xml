@@ -86,5 +86,14 @@
                                 Após a sequência de estudo desse texto. As frases fragmentadas
                                 serão adicionados no baralho.</string>
 
+    <!-- Textos da tela principal baralho comum -->
+
+    <string name="pbc_btn_iniciar">Iniciar Estudos</string>
+    <string name="pbc_btn_add">Adicionar Carta</string>
+    <string name="pbc_btn_voltar">Voltar</string>
+    <string name="pbc_btn_config">Config.</string>
+    <string name="pbc_btn_editar">Editar</string>
+    <string name="pbc_btn_estastistica">Estatística</string>
+
 
 </resources>
