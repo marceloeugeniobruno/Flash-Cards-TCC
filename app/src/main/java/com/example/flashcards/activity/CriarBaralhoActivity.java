@@ -13,13 +13,18 @@ import android.widget.Toast;
 
 
 import com.example.flashcards.R;
+import com.example.flashcards.config.ConfiguracaoFirebase;
+import com.example.flashcards.helper.Base64Custon;
 import com.example.flashcards.model.Baralho;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 public class CriarBaralhoActivity extends AppCompatActivity {
-    private RadioButton rdFcCom, rdFcId, rdFcIdIng, rdAlSem, rdAlLem, rdAlAlm;
+    private RadioButton rdFcCom;
+    private RadioButton rdFcId;
+    private RadioButton rdFcIdIng;
     private RadioGroup grupoAlarmes;
     private LinearLayout linearLayoutHora;
-    private Baralho baralho;
     private EditText editTextNome, editTextHora, editTextMinuto;
 
     @Override
@@ -28,15 +33,12 @@ public class CriarBaralhoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_criar_baralho);
 
         editTextNome = findViewById(R.id.crb_edt_nome_baralho);
-        //editTextHora = findViewById(R.id.crb_edt_hora);
-        //configurando radio buttons
         rdFcCom = findViewById(R.id.crb_rdb_fc_com);
         rdFcId = findViewById(R.id.crb_rdb_fc_id);
         rdFcIdIng = findViewById(R.id.crb_rdb_fc_id_ing);
-        rdAlSem = findViewById(R.id.crb_rdb_al_sem);
-        rdAlLem = findViewById(R.id.crb_rdb_al_lem);
-        rdAlAlm = findViewById(R.id.fcrb_rdb_al_alm);
-        //configurando radio grupo para add um listneer
+        RadioButton rdAlSem = findViewById(R.id.crb_rdb_al_sem);
+        RadioButton rdAlLem = findViewById(R.id.crb_rdb_al_lem);
+        RadioButton rdAlAlm = findViewById(R.id.fcrb_rdb_al_alm);
         grupoAlarmes = findViewById(R.id.crb_rgp_alertas);
         linearLayoutHora = findViewById(R.id.crb_lly_hora);
         mostrarHoraAlarme();
@@ -70,21 +72,32 @@ public class CriarBaralhoActivity extends AppCompatActivity {
     public void criarBaralho(View view){
         String nome = editTextNome.getText().toString();
         if (!nome.isEmpty()){
-            //TODO: criar verificador de nome
-            this.baralho = new Baralho();
-            this.baralho.setNome(editTextNome.getText().toString());
-            if (rdFcCom.isChecked()){
-                finish();
-                Intent baralhoComum = new Intent(getApplicationContext(), BaralhoComumActivity.class);
-                startActivity(baralhoComum);
-
-            }else if(rdFcId.isChecked()||rdFcIdIng.isChecked()){
-                if(rdFcId.isChecked()){
-                    Intent infoc = new Intent(getApplicationContext(), InformacaoIdiomasActivity.class);
-                    startActivity(infoc);
-                }else if(rdFcIdIng.isChecked()){
-                    Intent infIng = new Intent(getApplicationContext(), InformacaoIdiomasIngActivity.class);
-                    startActivity(infIng);
+            Baralho baralho = new Baralho();
+            baralho.setNome(nome);
+            if (verifiicarNome(nome)) {
+                FirebaseAuth autenticacao = ConfiguracaoFirebase.getAuth();
+                DatabaseReference firebase = ConfiguracaoFirebase.getDatabase();
+                String email = Base64Custon.codificarBase64(autenticacao.getCurrentUser().getEmail());
+                //TODO: Criar método de criar alarme ou lembrete
+                if (rdFcCom.isChecked()) {
+                    baralho.setTipo("Comum");
+                    Toast.makeText(CriarBaralhoActivity.this, "Era para ir para oo fire Base", Toast.LENGTH_LONG).show();
+                    firebase.child(email).child(nome).setValue(baralho);
+                    //finish();
+                    //Intent baralhoComum = new Intent(getApplicationContext(), BaralhoComumActivity.class);
+                    //startActivity(baralhoComum);
+                } else if (rdFcId.isChecked() || rdFcIdIng.isChecked()) {
+                    baralho.setTipo("Idiomas");
+                    if (rdFcId.isChecked()) {
+                        firebase.child(email).child(nome).setValue(baralho);
+                        //Intent infoc = new Intent(getApplicationContext(), InformacaoIdiomasActivity.class);
+                        //startActivity(infoc);
+                    } else if (rdFcIdIng.isChecked()) {
+                        firebase.child(email).child(nome).setValue(baralho);
+                        //TODO: Criar método para baixar grupos nativos do app
+                        //Intent infIng = new Intent(getApplicationContext(), InformacaoIdiomasIngActivity.class);
+                        //startActivity(infIng);
+                    }
                 }
             }
         }else{
@@ -95,7 +108,7 @@ public class CriarBaralhoActivity extends AppCompatActivity {
     }
 
     public boolean verifiicarNome(String nome){
-
+        //TODO: verificar se o nome já existe e se não tem caracteres invalidos
         return true;
     }
 
