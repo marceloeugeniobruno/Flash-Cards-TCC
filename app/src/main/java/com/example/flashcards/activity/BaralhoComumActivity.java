@@ -50,21 +50,27 @@ public class BaralhoComumActivity extends AppCompatActivity {
     }
 
     public void pbcAdicinarCarta(View view){
-        //TODO: CRIAR Tela de add cartas
-        Intent principal = new Intent(BaralhoComumActivity.this, MainActivity.class);
-        startActivity(principal);
+        Intent editorDeCarta = new Intent(BaralhoComumActivity.this, EditorDeCartasActivity.class);
+        editorDeCarta.putExtra("nomeBaralho", nomeBaralho);
+        editorDeCarta.putExtra("tipo", "Comum");
+        startActivity(editorDeCarta);
     }
 
     public void pbcEditarBaralho(View view){
-        //TODO: CRIAR Tela de editar Baralho
-        Intent principal = new Intent(BaralhoComumActivity.this, MainActivity.class);
-        startActivity(principal);
+
+        Intent editorBaralho = new Intent(BaralhoComumActivity.this, EditorDeBaralhoActivity.class);
+        editorBaralho.putExtra("nomeBaralho", nomeBaralho);
+        startActivity(editorBaralho);
     }
 
     public void pbcGerenciarAlarmes(View view){
-        //TODO: CRIAR Tela de gerenciamento de alarmes
-        Intent principal = new Intent(BaralhoComumActivity.this, MainActivity.class);
-        startActivity(principal);
+        Intent gerenciador = new Intent(BaralhoComumActivity.this, GerenciadorDeAlertasActivity.class);
+        //TODO: Mandar configurações de alertas e alarmes
+        gerenciador.putExtra("alarme", false);
+        gerenciador.putExtra("lembrete", false);
+        gerenciador.putExtra("hora", 0);
+        gerenciador.putExtra("minuto", 0);
+        startActivity(gerenciador);
     }
 
 
