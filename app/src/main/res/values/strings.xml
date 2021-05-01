@@ -90,10 +90,28 @@
 
     <string name="pbc_btn_iniciar">Iniciar Estudos</string>
     <string name="pbc_btn_add">Adicionar Carta</string>
-    <string name="pbc_btn_voltar">Voltar</string>
+    <string name="pbc_btn_voltar">Início</string>
     <string name="pbc_btn_config">Config.</string>
     <string name="pbc_btn_editar">Editar</string>
-    <string name="pbc_btn_estastistica">Estatística</string>
+    <string name="pbc_txt_estastistica">Estatísticas:</string>
+    <string name="pbc_txt_dias">Dias de Estudo:</string>
+    <string name="pbc_txt_cartas">Cartas Estudadas:</string>
+
+    <!-- Textos da tela primeira pergunta como está o seu tempo -->
+
+    <string name="ppt_txt_comtempo">Estou com tempo de sobra!</string>
+    <string name="ppt_txt_normal">Tenho tempo, mas não muito!</string>
+    <string name="ppt_txt_ocupado">Tenho muita coisa para fazer!</string>
+    <string name="ppt_txt_pergunta">Como está o seu tempo para estudar?</string>
+    <string name="ppt_txt_escolha">Selecione uma figura!</string>
+
+    <!-- Textos da tela Segunda pergunta como está o seu tempo -->
+
+    <string name="spu_txt_animada">Estou com tempo de sobra!</string>
+    <string name="spu_txt_tranquilo">Tenho tempo, mas não muito!</string>
+    <string name="spu_txt_desnimado">Tenho muita coisa para fazer!</string>
+    <string name="spu_txt_pergunta">Estou com seu ânimo para estudar!</string>
+    <string name="spu_txt_escolha">Selecione uma figura!</string>
 
 
 </resources>

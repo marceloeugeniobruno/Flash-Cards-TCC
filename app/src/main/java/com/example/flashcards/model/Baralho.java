@@ -15,6 +15,44 @@ public class Baralho {
     private boolean lembrete;
     private int hora;
     private int minuto;
+    private int dias;
+    private int cartas;
+
+    public int getDias() {
+        return dias;
+    }
+
+    public void setDias(int dias) {
+        this.dias = dias;
+    }
+
+    public int getCartas() {
+        return cartas;
+    }
+
+    public void setCartas(int cartas) {
+        this.cartas = cartas;
+    }
+
+    public int getTextos() {
+        return textos;
+    }
+
+    public void setTextos(int textos) {
+        this.textos = textos;
+    }
+
+    public int getPalavrasUnicas() {
+        return palavrasUnicas;
+    }
+
+    public void setPalavrasUnicas(int palavrasUnicas) {
+        this.palavrasUnicas = palavrasUnicas;
+    }
+
+    private int textos;
+    private int palavrasUnicas;
+
     private List<Carta> listaDeCartas;
 
     public Baralho() {

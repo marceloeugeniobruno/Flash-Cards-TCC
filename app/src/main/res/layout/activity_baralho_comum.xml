@@ -37,6 +37,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:background="@drawable/botoes"
+        android:onClick="pbcTelaPrincipal"
         android:text="@string/pbc_btn_voltar"
         app:backgroundTint="@color/azul_claro"
         app:layout_constraintBottom_toTopOf="@+id/guideline11"
@@ -85,6 +86,7 @@
         android:layout_marginRight="32dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/botoes"
+        android:onClick="pbcIniciarEstudo"
         android:text="@string/pbc_btn_iniciar"
         app:backgroundTint="@color/azul_claro"
         app:layout_constraintBottom_toTopOf="@+id/button9"
@@ -107,11 +109,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/pbc_tex_nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="TextView"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="24sp"
@@ -122,32 +123,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32sp"
-            android:text="@string/pbc_btn_estastistica"
+            android:text="@string/pbc_txt_estastistica"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/pbc_tex_dias"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16sp"
-            android:text="TextView"
+            android:text="@string/pbc_txt_dias"
             android:textColor="@color/white" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/pbc_tex_cartas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8sp"
-            android:text="TextView"
+            android:text="@string/pbc_txt_cartas"
             android:textColor="@color/white" />
 
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8sp"
-            android:text="TextView"
-            android:textColor="@color/white" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
