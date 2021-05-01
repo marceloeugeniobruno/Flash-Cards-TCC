@@ -107,9 +107,9 @@
 
     <!-- Textos da tela Segunda pergunta como está o seu tempo -->
 
-    <string name="spu_txt_animada">Estou com tempo de sobra!</string>
-    <string name="spu_txt_tranquilo">Tenho tempo, mas não muito!</string>
-    <string name="spu_txt_desnimado">Tenho muita coisa para fazer!</string>
+    <string name="spu_txt_animada">Me sinto bem disposto!</string>
+    <string name="spu_txt_tranquilo">Estou tranquilo!</string>
+    <string name="spu_txt_desnimado">Afff! Mais um dia!</string>
     <string name="spu_txt_pergunta">Estou com seu ânimo para estudar!</string>
     <string name="spu_txt_escolha">Selecione uma figura!</string>
 
