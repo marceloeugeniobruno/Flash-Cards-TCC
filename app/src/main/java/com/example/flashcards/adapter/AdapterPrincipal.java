@@ -1,5 +1,7 @@
 package com.example.flashcards.adapter;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcards.R;
+import com.example.flashcards.model.Baralho;
+
+import java.util.List;
 
 public class AdapterPrincipal extends RecyclerView.Adapter<AdapterPrincipal.PrincipalViewHolder> {
+    Context context;
+    List<Baralho> baralhoList;
+
+    public AdapterPrincipal(List<Baralho> baralhoList, Context context) {
+        this.context = context;
+        this.baralhoList = baralhoList;
+    }
 
     @NonNull
     @Override
@@ -23,14 +35,15 @@ public class AdapterPrincipal extends RecyclerView.Adapter<AdapterPrincipal.Prin
 
     @Override
     public void onBindViewHolder(@NonNull PrincipalViewHolder holder, int position) {
-        holder.nomeBaralho.setText("Nome do Baralho");
-        holder.tipo.setText("tipo");
-
+        Baralho baralho = baralhoList.get(position);
+        holder.nomeBaralho.setText(baralho.getNome());
+        holder.tipo.setText(baralho.getTipo());
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+
+        return baralhoList.size();
     }
 
     public class PrincipalViewHolder extends RecyclerView.ViewHolder{

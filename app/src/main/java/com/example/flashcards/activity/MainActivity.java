@@ -16,20 +16,25 @@ import com.example.flashcards.R;
 import com.example.flashcards.adapter.AdapterPrincipal;
 import com.example.flashcards.config.ConfiguracaoFirebase;
 import com.example.flashcards.helper.Base64Custon;
+import com.example.flashcards.model.Baralho;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     protected final static String ARQUIVO_PREFERENCIAS = "arquivoPreferencia";
-    private RecyclerView recyclerView;
     private String email;
     private DatabaseReference database = ConfiguracaoFirebase.getDatabase();
     private DatabaseReference usuario;
     private ValueEventListener valueEventListenerUsuario;
+    private List<Baralho> listaDeBaralhos = new ArrayList<>();
+    private AdapterPrincipal adapterPrincipal;
 
 
     @Override
@@ -42,15 +47,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         verificarUsuarioLogado();
-        recyclerView = findViewById(R.id.pri_rc);
+        RecyclerView recyclerView = findViewById(R.id.pri_rc);
+
         //criação da lista
         usuario = database.child(email);
         valueEventListenerUsuario = usuario.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //TODO: tratar os dados para fazer a lista
+                listaDeBaralhos.clear();
+                for(DataSnapshot dados: snapshot.getChildren()){
 
-
+                    Baralho baralho = dados.getValue(Baralho.class);
+                    listaDeBaralhos.add(baralho);
+                }
+                adapterPrincipal.notifyDataSetChanged();
             }
 
             @Override
@@ -61,12 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
         //configuração do adapter
         //TODO: alterar o adapter para receber uma lista
-        AdapterPrincipal adapter = new AdapterPrincipal();
+        adapterPrincipal = new AdapterPrincipal(listaDeBaralhos, this);
         //configuração da Recyclerview
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapterPrincipal);
     }
 
     public void verificarUsuarioLogado(){
