@@ -43,12 +43,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        verificarUsuarioLogado();
+    public void movimentacao(){
         RecyclerView recyclerView = findViewById(R.id.pri_rc);
-
         //criação da lista
         usuario = database.child(email);
         valueEventListenerUsuario = usuario.addValueEventListener(new ValueEventListener() {
@@ -80,6 +76,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapterPrincipal);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        verificarUsuarioLogado();
+        movimentacao();
+    }
+
     public void verificarUsuarioLogado(){
         FirebaseAuth autenticacao = ConfiguracaoFirebase.getAuth();
         if(autenticacao.getCurrentUser() == null){
@@ -95,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         Intent inicial = new Intent(getApplicationContext(), CriarBaralhoActivity.class);
         startActivity(inicial);
     }
+
+
 
     @Override
     protected void onStop() {

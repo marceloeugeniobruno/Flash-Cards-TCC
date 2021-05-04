@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
     android:background="@android:drawable/divider_horizontal_bright"
+    android:clickable="true"
     android:orientation="vertical">
 
     <TextView
