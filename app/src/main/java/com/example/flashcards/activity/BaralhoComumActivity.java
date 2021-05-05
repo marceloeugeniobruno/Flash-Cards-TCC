@@ -34,7 +34,6 @@ public class BaralhoComumActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baralho_comum);
 
-
     }
 
     @Override
@@ -56,8 +55,9 @@ public class BaralhoComumActivity extends AppCompatActivity {
         startActivity(principal);
     }
 
+
+
     public void pbcIniciarEstudo(View view){
-        //TODO: CRIAR Tela de add cartas
         Intent iniciarEstudo = new Intent(BaralhoComumActivity.this, PerguntaPrimeiraTempoActivity.class);
         iniciarEstudo.putExtra("nomeBaralho", nomeBaralho);
         iniciarEstudo.putExtra("nCartas", 10);

@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlashCards">
-        <activity android:name=".activity.GerenciadorDeAlertasActivity"></activity>
+        <activity android:name=".activity.EditorDeGruposActivity"></activity>
+        <activity android:name=".activity.EditorDeBaralhoIdiomasActivity" />
+        <activity android:name=".activity.GerenciadorDeAlertasActivity" />
         <activity android:name=".activity.EditorDeBaralhoActivity" />
         <activity android:name=".activity.EditorDeCartasActivity" />
         <activity android:name=".activity.CartaActivity" />
