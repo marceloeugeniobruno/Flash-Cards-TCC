@@ -17,6 +17,10 @@ public class Baralho {
     private int minuto;
     private int dias;
     private int cartas;
+    private int textos;
+    private int palavrasUnicas;
+
+    public Baralho(){}
 
     public int getDias() {
         return dias;
@@ -49,14 +53,6 @@ public class Baralho {
     public void setPalavrasUnicas(int palavrasUnicas) {
         this.palavrasUnicas = palavrasUnicas;
     }
-
-    private int textos;
-    private int palavrasUnicas;
-
-
-    public Baralho() {
-    }
-
 
     public String getNome() {
         return nome;

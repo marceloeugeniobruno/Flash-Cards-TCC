@@ -76,6 +76,8 @@ public class CriarBaralhoActivity extends AppCompatActivity {
             baralho.setNome(nome);
             baralho.setDias(0);
             baralho.setCartas(0);
+            baralho.setTextos(0);
+            baralho.setPalavrasUnicas(0);
             if (verifiicarNome(nome)) {
                 FirebaseAuth autenticacao = ConfiguracaoFirebase.getAuth();
                 DatabaseReference firebase = ConfiguracaoFirebase.getDatabase();

@@ -46,7 +46,6 @@ public class BaralhoComumActivity extends AppCompatActivity {
         nomeBaralho = dados.getString("nomeBaralho");
         textoNome.setText(nomeBaralho);
         pegarValores();
-        //TODO: criar método para baixar os dados
     }
 
     public void pbcTelaPrincipal(View view){
