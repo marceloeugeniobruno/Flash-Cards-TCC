@@ -50,10 +50,8 @@ public class MainActivity extends AppCompatActivity {
         valueEventListenerUsuario = usuario.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //TODO: tratar os dados para fazer a lista
                 listaDeBaralhos.clear();
                 for(DataSnapshot dados: snapshot.getChildren()){
-
                     Baralho baralho = dados.getValue(Baralho.class);
                     listaDeBaralhos.add(baralho);
                 }
@@ -62,12 +60,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                //TODO: Fazer tratamento de errro
             }
         });
-
         //configuração do adapter
-        //TODO: alterar o adapter para receber uma lista
         adapterPrincipal = new AdapterPrincipal(listaDeBaralhos, this);
         //configuração da Recyclerview
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -105,7 +101,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         usuario.removeEventListener(valueEventListenerUsuario);
-
-
     }
 }

@@ -5,12 +5,29 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcards.R;
+import com.example.flashcards.adapter.AdapterPrincipal;
+import com.example.flashcards.config.ConfiguracaoFirebase;
+import com.example.flashcards.helper.Base64Custon;
+import com.example.flashcards.model.Baralho;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 public class BaralhoComumActivity extends AppCompatActivity {
     private String nomeBaralho;
+    private DatabaseReference database = ConfiguracaoFirebase.getDatabase();
+    private DatabaseReference usuario;
+    private ValueEventListener valueEventListenerBcomun;
+    private TextView textoDias;
+    private TextView textoCartas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +41,13 @@ public class BaralhoComumActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         TextView textoNome = findViewById(R.id.pbc_tex_nome);
-        TextView textoDias = findViewById(R.id.pbc_tex_dias);
-        TextView textoCartas = findViewById(R.id.pbc_tex_cartas);
+        textoDias = findViewById(R.id.pbc_tex_dias);
+        textoCartas = findViewById(R.id.pbc_tex_cartas);
         Bundle dados = getIntent().getExtras();
         nomeBaralho = dados.getString("nomeBaralho");
         textoNome.setText(nomeBaralho);
+        pegarValores();
         //TODO: criar método para baixar os dados
-        textoDias.setText("Dias de estudo: " + 0);
-        textoCartas.setText("Cartas Estudadas: " + 0);
     }
 
     public void pbcTelaPrincipal(View view){
@@ -73,5 +89,35 @@ public class BaralhoComumActivity extends AppCompatActivity {
         startActivity(gerenciador);
     }
 
+    public void pegarValores(){
+        FirebaseAuth autenticacao = ConfiguracaoFirebase.getAuth();
+        String email = "";
+        if(autenticacao.getCurrentUser() == null){
+            //TODO: Fazer tratamento de erro
+        }else{
+            email = Base64Custon.codificarBase64(autenticacao.getCurrentUser().getEmail());
+        }
+        usuario = database.child(email).child(nomeBaralho);
+        valueEventListenerBcomun = usuario.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Baralho baralho = snapshot.getValue(Baralho.class);
+                textoDias.setText("Dias de estudo: " + baralho.getDias());
+                textoCartas.setText("Cartas Estudadas: " + baralho.getCartas());
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //TODO: Fazer tratamento de errro
+            }
+        });
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        usuario.removeEventListener(valueEventListenerBcomun);
+    }
 }

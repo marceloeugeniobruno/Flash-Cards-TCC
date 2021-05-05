@@ -114,4 +114,21 @@
     <string name="spu_txt_escolha">Selecione uma figura!</string>
 
 
+    <!-- Textos da tela principal baralho idiomas -->
+
+    <string name="pbi_btn_iniciar">Iniciar Estudos</string>
+    <string name="pbi_btn_add_carta">ADD Carta</string>
+    <string name="pbi_btn_add_grupo">ADD Grupo</string>
+    <string name="pbi_btn_edt_grupo">EDT Grupo</string>
+    <string name="pbi_btn_voltar">Início</string>
+    <string name="pbi_btn_config">Config.</string>
+    <string name="pbi_btn_editar">Editar</string>
+    <string name="pbi_txt_estastistica">Estatísticas:</string>
+    <string name="pbi_txt_dias">Dias de Estudo:</string>
+    <string name="pbi_txt_textos">Textos Estudados:</string>
+    <string name="pbi_txt_cartas">Cartas Estudadas:</string>
+    <string name="pbi_txt_palavras">Palavras Únicas Visualizadas:</string>
+
+
+
 </resources>

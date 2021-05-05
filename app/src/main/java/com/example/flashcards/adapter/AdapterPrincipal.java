@@ -47,10 +47,8 @@ public class AdapterPrincipal extends RecyclerView.Adapter<AdapterPrincipal.Prin
 
     @Override
     public int getItemCount() {
-
         return baralhoList.size();
     }
-
 
     public static class PrincipalViewHolder extends RecyclerView.ViewHolder {
         TextView nomeBaralho;
@@ -78,7 +76,6 @@ public class AdapterPrincipal extends RecyclerView.Adapter<AdapterPrincipal.Prin
                     Log.i("FIREBASE","Element " + nomeBaralho.getText() + " clicked.");
                 }
             });
-
 
         }
     }
