@@ -129,5 +129,28 @@
     <string name="pbi_txt_cartas">Cartas Estudadas:</string>
     <string name="pbi_txt_palavras">Palavras Únicas Visualizadas:</string>
 
+    <!-- Textos da tela Editor de cartas fernte-->
+
+    <string name="edc_txt_frente">FRENTE</string>
+    <string name="edc_txt_verso">VERSO</string>
+    <string name="edc_btn_voltar">Voltar</string>
+    <string name="edc_btn_anexar_audio">Áudio</string>
+    <string name="edc_btn_anexar_vidio">Vídeo</string>
+    <string name="edc_btn_anexar_imagem">Imagem</string>
+    <string name="edc_btn_salvar">Avançar</string>
+    <string name="edc_txt_anexar">Anexar</string>
+
+    <!-- Textos da tela Editor de carta verso -->
+
+    <string name="edcv_txt_frente">FRENTE</string>
+    <string name="edcv_txt_verso">VERSO</string>
+    <string name="edcv_btn_voltar">Voltar</string>
+    <string name="edcv_btn_anexar_audio">Áudio</string>
+    <string name="edcv_btn_anexar_vidio">Vídeo</string>
+    <string name="edcv_btn_anexar_imagem">Imagem</string>
+    <string name="edcv_btn_salvar">Adicionar e fechar</string>
+    <string name="edcv_txt_anexar">Anexar</string>
+    <string name="edcv_btn_salvarmais">Adicionar</string>
+
 
 </resources>
