@@ -132,13 +132,14 @@
     <!-- Textos da tela Editor de cartas fernte-->
 
     <string name="edc_txt_frente">FRENTE</string>
-    <string name="edc_txt_verso">VERSO</string>
+    <string name="edc_txt_anexar">Anexar</string>
     <string name="edc_btn_voltar">Voltar</string>
     <string name="edc_btn_anexar_audio">Áudio</string>
     <string name="edc_btn_anexar_vidio">Vídeo</string>
     <string name="edc_btn_anexar_imagem">Imagem</string>
+    <string name="edc_btn_excluir">excluir</string>
     <string name="edc_btn_salvar">Avançar</string>
-    <string name="edc_txt_anexar">Anexar</string>
+
 
     <!-- Textos da tela Editor de carta verso -->
 
