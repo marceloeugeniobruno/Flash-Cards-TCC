@@ -54,6 +54,7 @@ public class BaralhoIdiomasActivity extends AppCompatActivity {
         Intent editorDeCarta = new Intent(BaralhoIdiomasActivity.this, EditorDeCartasActivity.class);
         editorDeCarta.putExtra("nomeBaralho", nomeBaralho);
         editorDeCarta.putExtra("tipo", "Idiomas");
+        editorDeCarta.putExtra("flag", 1);
         startActivity(editorDeCarta);
     }
 

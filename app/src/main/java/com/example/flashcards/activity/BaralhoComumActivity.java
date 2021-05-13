@@ -68,6 +68,7 @@ public class BaralhoComumActivity extends AppCompatActivity {
         Intent editorDeCarta = new Intent(BaralhoComumActivity.this, EditorDeCartasActivity.class);
         editorDeCarta.putExtra("nomeBaralho", nomeBaralho);
         editorDeCarta.putExtra("tipo", "Comum");
+        editorDeCarta.putExtra("flag", 1);
         startActivity(editorDeCarta);
     }
 
