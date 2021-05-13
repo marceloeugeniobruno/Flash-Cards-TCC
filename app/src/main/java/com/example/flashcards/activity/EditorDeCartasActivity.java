@@ -97,10 +97,7 @@ public class EditorDeCartasActivity extends AppCompatActivity {
             versoVideo = dados.getString("versoVideo");
         }
 
-        /*TODO: Adicionar método de verificação de oque está selecionado para quando o usuário
-        TODO: voltar da Editar Verso os dados
 
-         */
     }
 
     public void edcAdicionarAudio(View view){
