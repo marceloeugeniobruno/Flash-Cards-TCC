@@ -140,7 +140,7 @@
     <string name="edc_btn_excluir">excluir</string>
     <string name="edc_btn_salvar">Avançar</string>
     <string name="edc_alerta_sem_preecimento">Não Foi adicionado nenhum item (textos, audios, imagens ou vídeos) na frente da carta</string>
-    <string name="edc_alerta_grupo_sem_audio">Não Foi adicionado nenhum item (textos, audios, imagens ou vídeos) na frente da carta</string>
+    <string name="edc_alerta_grupo_sem_audio">Não Foi adicionado nenhum item (textos E audios) na frente da carta</string>
 
 
 

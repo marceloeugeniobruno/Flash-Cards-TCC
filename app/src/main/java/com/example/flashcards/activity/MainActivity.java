@@ -41,6 +41,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //criando dados para criação das cartas
+        SharedPreferences preferences = getSharedPreferences(ARQUIVO_PREFERENCIAS, 0);
+        SharedPreferences.Editor editor = preferences.edit();
+        //flags da carta frente
+        editor.putString("textoFrente","");
+        editor.putString("endAF","");
+        editor.putString("endIF","");
+        editor.putString("endVF","");
+        //flags da carta verso
+        editor.putString("textoVerso","");
+        editor.putString("endAV","");
+        editor.putString("endIV","");
+        editor.putString("endVV","");
+
+        editor.commit();
     }
 
     public void movimentacao(){

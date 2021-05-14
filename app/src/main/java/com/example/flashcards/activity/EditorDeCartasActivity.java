@@ -9,10 +9,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,27 +25,30 @@ import com.example.flashcards.R;
 import com.example.flashcards.helper.Permissoes;
 
 public class EditorDeCartasActivity extends AppCompatActivity {
-
+    //botões
     private Button excAudio;
     private Button excImagem;
     private Button excVideo;
     private Button addAudio;
     private Button addImagem;
     private Button addVideo;
+    //campos textos
     private TextView infoAudio;
     private TextView infoImagem;
     private TextView infoVideo;
     private EditText textoFrente;
+    //variáveis globais
     private int flag;
     private String nomeBaralho;
     private String tipo;
+    //variáveis frente
+    //private String frenteTexto = "";
+    private String frenteAudio;
+    private String frenteImagem;
+    private String frenteVideo;
 
-    private String versoTexto = "";
-    private String versoAudio = "";
-    private String versoImagem = "";
-    private String versoVideo = "";
-
-
+    //arquivo de preferências
+    private SharedPreferences preferences;
 
     private String [] permissoees = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE
@@ -54,7 +59,7 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor_de_cartas);
         Permissoes.validarPermissoes(permissoees, this, 1);
-
+        //botões
         excAudio = findViewById(R.id.edc_btn_aud_ex);
         excImagem= findViewById(R.id.edc_btn_img_ex);
         excVideo = findViewById(R.id.edc_btn_vid_ex);
@@ -63,42 +68,45 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         addImagem= findViewById(R.id.edc_btn_img);
         addVideo = findViewById(R.id.edc_btn_vid);
 
+        //text views
         infoAudio = findViewById(R.id.edc_txt_inf_aud);
-        infoAudio.setText("");
         infoImagem= findViewById(R.id.edc_txt_inf_img);
-        infoImagem.setText("");
         infoVideo = findViewById(R.id.edc_txt_inf_vid);
-        infoVideo.setText("");
         textoFrente = findViewById(R.id.edc_edt_frente);
         textoFrente.setText("");
+        //arquivo de preferencias
+        preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
 
+        //recuperando dados
         Bundle dados = getIntent().getExtras();
-        flag = dados.getInt("flag");
         nomeBaralho = dados.getString("nomeBaralho");
         tipo = dados.getString("tipo");
-        if (flag == 2){
-            textoFrente.setText(dados.getString("textofr"));
-            String endau = dados.getString("endaudio");
-            String endim = dados.getString("endimagem");
-            String endvi = dados.getString("endvideo");
-            if(!endau.equals("")){
-                alteraBttAudio(endau);
-            }
-            if(!endim.equals("")){
-                alteraBttAudio(endim);
-            }
-            if(!endvi.equals("")){
-                alteraBttAudio(endvi);
-            }
-        }else if (flag == 4){
-            versoTexto = dados.getString("versoTexto");
-            versoAudio = dados.getString("versoAudio");
-            versoImagem = dados.getString("versoImagem");
-            versoVideo = dados.getString("versoVideo");
+        flag = dados.getInt("flag");
+        //textos frente
+        textoFrente.setText(preferences.getString("textoFrente", ""));
+
+        frenteAudio = preferences.getString("endAF", "");
+        if(!frenteAudio.equals("")){
+            alteraBttAudio(frenteAudio);
         }
 
+        frenteImagem = preferences.getString("endIF", "");
+        if(!frenteImagem.equals("")){
+            alteraBttImagem(frenteImagem);
+        }
 
+        frenteVideo = preferences.getString("endVF", "");
+        if(!frenteVideo.equals("")){
+            alteraBttVideo(frenteVideo);
+        }
+        //para flag = 2 que é para textos com áudio, não é para colocar nem vídeos nem imagens
+
+        if(flag == 2){
+            addImagem.setVisibility(View.INVISIBLE);
+            addVideo.setVisibility(View.INVISIBLE);
+        }
     }
+
 
     public void edcAdicionarAudio(View view){
         Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
@@ -149,7 +157,6 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         infoImagem.setText(endereco);
         infoImagem.setVisibility(View.VISIBLE);
         addImagem.setVisibility(View.INVISIBLE);
-
     }
 
     public void alteraBttVideo(String endereco){
@@ -157,7 +164,6 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         infoVideo.setText(endereco);
         infoVideo.setVisibility(View.VISIBLE);
         addVideo.setVisibility(View.INVISIBLE);
-
     }
 
 
@@ -181,34 +187,32 @@ public class EditorDeCartasActivity extends AppCompatActivity {
     }
 
     public void edcSalvar(View view){
-        String confereAudio = infoAudio.getText().toString();
-        String confereFrente = textoFrente.getText().toString();
-        String confereVideo = infoVideo.getText().toString();
-        String confereImagem = infoImagem.getText().toString();
+        SharedPreferences.Editor editor = preferences.edit();
+        String frenteTexto = textoFrente.getText().toString();
+        frenteAudio = infoAudio.getText().toString();
+        frenteVideo = infoVideo.getText().toString();
+        frenteImagem = infoImagem.getText().toString();
+
+        editor.putString("textoFrente", frenteTexto);
+        editor.putString("endAF", frenteAudio);
+        editor.putString("endIF", frenteImagem);
+        editor.putString("endVF", frenteVideo);
+        editor.commit();
 
         Intent editcartaVerso = new Intent(EditorDeCartasActivity.this, EditorDeCartasVersoActivity.class);
         editcartaVerso.putExtra("tipo", tipo);
         editcartaVerso.putExtra("nomeBaralho", nomeBaralho);
-        editcartaVerso.putExtra("frente", confereFrente);
-        editcartaVerso.putExtra("endAudio", confereAudio);
-        editcartaVerso.putExtra("endImagem", confereImagem);
-        editcartaVerso.putExtra("endVideo", confereVideo);
-        editcartaVerso.putExtra("flag", 1);
-        editcartaVerso.putExtra("versoTexto", versoTexto);
-        editcartaVerso.putExtra("versoImagem", versoImagem);
-        editcartaVerso.putExtra("versoAudio", versoAudio);
-        editcartaVerso.putExtra("versoVideo", versoVideo);
+        editcartaVerso.putExtra("flag", flag);
 
-        if (!confereAudio.equals("")
-                || !confereFrente.equals("")
-                || !confereImagem.equals("")
-                || !confereVideo.equals("")) {
-            if (flag == 1 || flag == 2) {
+        if (!frenteAudio.equals("")
+                || !frenteTexto.equals("")
+                || !frenteImagem.equals("")
+                || !frenteVideo.equals("")) {
+            if (flag == 1) {
                 startActivity(editcartaVerso);
                 finish();
-            }else if (flag == 3 || flag == 4){
-                if (!confereAudio.equals("")){
-                    editcartaVerso.putExtra("flag", 3);
+            }else if (flag == 2){
+                if (!frenteAudio.equals("") && !frenteTexto.equals("")){
                     startActivity(editcartaVerso);
                     finish();
                 }else{

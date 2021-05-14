@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/edcv_edt_verso"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
@@ -66,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/botoes"
+            android:onClick="edcvVoltar"
             android:text="@string/edcv_btn_voltar"
             app:backgroundTint="@color/azul_claro" />
 
