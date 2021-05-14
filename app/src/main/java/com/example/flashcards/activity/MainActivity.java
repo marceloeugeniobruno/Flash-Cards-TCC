@@ -44,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
         //criando dados para criação das cartas
         SharedPreferences preferences = getSharedPreferences(ARQUIVO_PREFERENCIAS, 0);
         SharedPreferences.Editor editor = preferences.edit();
-        //flags da carta frente
+        //variaveis da carta frente
         editor.putString("textoFrente","");
         editor.putString("endAF","");
         editor.putString("endIF","");
         editor.putString("endVF","");
-        //flags da carta verso
+        //variaveis da carta verso
         editor.putString("textoVerso","");
         editor.putString("endAV","");
         editor.putString("endIV","");
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         editor.commit();
     }
+
 
     public void movimentacao(){
         RecyclerView recyclerView = findViewById(R.id.pri_rc);

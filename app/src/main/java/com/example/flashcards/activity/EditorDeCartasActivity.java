@@ -183,7 +183,15 @@ public class EditorDeCartasActivity extends AppCompatActivity {
     }
 
     public void edcFinalizar(View view){
+
+        SharedPreferences.Editor editor = preferences.edit();
+        //flags da carta frente
+        editor.putString("textoFrente","");
+        editor.putString("endAF","");
+        editor.putString("endIF","");
+        editor.putString("endVF","");
         finish();
+
     }
 
     public void edcSalvar(View view){
@@ -197,7 +205,7 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         editor.putString("endAF", frenteAudio);
         editor.putString("endIF", frenteImagem);
         editor.putString("endVF", frenteVideo);
-        editor.commit();
+        editor.apply();
 
         Intent editcartaVerso = new Intent(EditorDeCartasActivity.this, EditorDeCartasVersoActivity.class);
         editcartaVerso.putExtra("tipo", tipo);
