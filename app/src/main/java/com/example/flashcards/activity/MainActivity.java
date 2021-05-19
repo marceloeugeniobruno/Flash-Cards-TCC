@@ -102,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(inicial);
         }else{
             email = Base64Custon.codificarBase64(autenticacao.getCurrentUser().getEmail());
+            SharedPreferences preferences = getSharedPreferences(ARQUIVO_PREFERENCIAS, 0);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("emailBase64","");
+            editor.commit();
         }
 
     }

@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
@@ -27,25 +28,30 @@ import com.example.flashcards.helper.Permissoes;
 public class EditorDeCartasActivity extends AppCompatActivity {
     //botões
     private Button excAudio;
-    private Button excImagem;
-    private Button excVideo;
     private Button addAudio;
-    private Button addImagem;
-    private Button addVideo;
+
     //campos textos
     private TextView infoAudio;
-    private TextView infoImagem;
-    private TextView infoVideo;
     private EditText textoFrente;
     //variáveis globais
     private int flag;
     private String nomeBaralho;
     private String tipo;
     //variáveis frente
-    //private String frenteTexto = "";
+    private String frenteTexto = "";
     private String frenteAudio;
+
+    /*
+    private Button excImagem;
+    private Button excVideo;
+    private Button addImagem;
+    private Button addVideo;
+    private TextView infoImagem;
+    private TextView infoVideo;
     private String frenteImagem;
     private String frenteVideo;
+
+     */
 
     //arquivo de preferências
     private SharedPreferences preferences;
@@ -61,17 +67,17 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         Permissoes.validarPermissoes(permissoees, this, 1);
         //botões
         excAudio = findViewById(R.id.edc_btn_aud_ex);
-        excImagem= findViewById(R.id.edc_btn_img_ex);
-        excVideo = findViewById(R.id.edc_btn_vid_ex);
+      //  excImagem= findViewById(R.id.edc_btn_img_ex);
+      //  excVideo = findViewById(R.id.edc_btn_vid_ex);
 
         addAudio = findViewById(R.id.edc_btn_aud);
-        addImagem= findViewById(R.id.edc_btn_img);
-        addVideo = findViewById(R.id.edc_btn_vid);
+      //  addImagem= findViewById(R.id.edc_btn_img);
+      //  addVideo = findViewById(R.id.edc_btn_vid);
 
         //text views
         infoAudio = findViewById(R.id.edc_txt_inf_aud);
-        infoImagem= findViewById(R.id.edc_txt_inf_img);
-        infoVideo = findViewById(R.id.edc_txt_inf_vid);
+     //   infoImagem= findViewById(R.id.edc_txt_inf_img);
+     //   infoVideo = findViewById(R.id.edc_txt_inf_vid);
         textoFrente = findViewById(R.id.edc_edt_frente);
         textoFrente.setText("");
         //arquivo de preferencias
@@ -89,22 +95,14 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         if(!frenteAudio.equals("")){
             alteraBttAudio(frenteAudio);
         }
-
+        /*
         frenteImagem = preferences.getString("endIF", "");
-        if(!frenteImagem.equals("")){
-            alteraBttImagem(frenteImagem);
-        }
-
+        if(!frenteImagem.equals("")){alteraBttImagem(frenteImagem);}
         frenteVideo = preferences.getString("endVF", "");
-        if(!frenteVideo.equals("")){
-            alteraBttVideo(frenteVideo);
-        }
+        if(!frenteVideo.equals("")){alteraBttVideo(frenteVideo);}
         //para flag = 2 que é para textos com áudio, não é para colocar nem vídeos nem imagens
-
-        if(flag == 2){
-            addImagem.setVisibility(View.INVISIBLE);
-            addVideo.setVisibility(View.INVISIBLE);
-        }
+        if(flag == 2){addImagem.setVisibility(View.INVISIBLE);addVideo.setVisibility(View.INVISIBLE);}
+         */
     }
 
 
@@ -130,29 +128,14 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         infoAudio.setVisibility(View.INVISIBLE);
         addAudio.setVisibility(View.VISIBLE);
     }
+/*
+    public void excImagem(View view){excImagem.setVisibility(View.INVISIBLE);infoImagem.setText("");
+        infoImagem.setVisibility(View.INVISIBLE);addImagem.setVisibility(View.VISIBLE);}
 
-    public void excImagem(View view){
-        excImagem.setVisibility(View.INVISIBLE);
-        infoImagem.setText("");
-        infoImagem.setVisibility(View.INVISIBLE);
-        addImagem.setVisibility(View.VISIBLE);
-    }
+    public void excVideo(View view){excVideo.setVisibility(View.INVISIBLE);infoVideo.setText("");
+    infoVideo.setVisibility(View.INVISIBLE);addVideo.setVisibility(View.VISIBLE);}
 
-    public void excVideo(View view){
-        excVideo.setVisibility(View.INVISIBLE);
-        infoVideo.setText("");
-        infoVideo.setVisibility(View.INVISIBLE);
-        addVideo.setVisibility(View.VISIBLE);
-    }
-
-    public void alteraBttAudio(String endereco){
-        excAudio.setVisibility(View.VISIBLE);
-        infoAudio.setText(endereco);
-        infoAudio.setVisibility(View.VISIBLE);
-        addAudio.setVisibility(View.INVISIBLE);
-    }
-
-    public void alteraBttImagem(String endereco){
+        public void alteraBttImagem(String endereco){
         excImagem.setVisibility(View.VISIBLE);
         infoImagem.setText(endereco);
         infoImagem.setVisibility(View.VISIBLE);
@@ -166,19 +149,34 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         addVideo.setVisibility(View.INVISIBLE);
     }
 
+ */
+
+    public void alteraBttAudio(String endereco){
+        excAudio.setVisibility(View.VISIBLE);
+        infoAudio.setText(endereco);
+        infoAudio.setVisibility(View.VISIBLE);
+        addAudio.setVisibility(View.INVISIBLE);
+    }
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK){
             assert data != null;
+            Uri arquivoSelecionado = data.getData();
+            String caminho = arquivoSelecionado.toString();
+
             if (requestCode == 1){
-                alteraBttAudio(data.getDataString());
-            }else if (requestCode == 2){
-                alteraBttImagem(data.getDataString());
-            }else if(requestCode == 3){
-                alteraBttVideo(data.getDataString());
+                alteraBttAudio(caminho);
             }
+
+            /*else if (requestCode == 2){alteraBttImagem(caminho);}else if(requestCode == 3)
+            {alteraBttVideo(caminho);
+            }
+             */
         }
     }
 
@@ -190,6 +188,11 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         editor.putString("endAF","");
         editor.putString("endIF","");
         editor.putString("endVF","");
+        editor.putString("textoVerso","");
+        editor.putString("endAV","");
+        editor.putString("endIV","");
+        editor.putString("endVV","");
+        editor.apply();
         finish();
 
     }
@@ -198,13 +201,15 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         String frenteTexto = textoFrente.getText().toString();
         frenteAudio = infoAudio.getText().toString();
+        /*
         frenteVideo = infoVideo.getText().toString();
         frenteImagem = infoImagem.getText().toString();
+        editor.putString("endIF", frenteImagem);
+        editor.putString("endVF", frenteVideo);
+         */
 
         editor.putString("textoFrente", frenteTexto);
         editor.putString("endAF", frenteAudio);
-        editor.putString("endIF", frenteImagem);
-        editor.putString("endVF", frenteVideo);
         editor.apply();
 
         Intent editcartaVerso = new Intent(EditorDeCartasActivity.this, EditorDeCartasVersoActivity.class);
@@ -213,9 +218,7 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         editcartaVerso.putExtra("flag", flag);
 
         if (!frenteAudio.equals("")
-                || !frenteTexto.equals("")
-                || !frenteImagem.equals("")
-                || !frenteVideo.equals("")) {
+                || !frenteTexto.equals("")){
             if (flag == 1) {
                 startActivity(editcartaVerso);
                 finish();

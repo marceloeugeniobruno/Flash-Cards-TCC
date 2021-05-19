@@ -46,6 +46,7 @@
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
+        android:padding="5dp"
         app:layout_constraintBottom_toTopOf="@+id/textView32"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,37 +116,9 @@
         android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
         android:onClick="edcvAdicionarAudio"
         android:text="@string/edcv_btn_anexar_audio"
-        app:layout_constraintBottom_toTopOf="@+id/edcv_btn_img"
-        app:layout_constraintEnd_toStartOf="@+id/guideline21"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/edcv_btn_img"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:onClick="edcvAdicionarImagem"
-        android:text="@string/edcv_btn_anexar_imagem"
-        app:layout_constraintBottom_toTopOf="@+id/edcv_btn_vid"
-        app:layout_constraintEnd_toStartOf="@+id/guideline21"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/edcv_btn_vid"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="edcvAdicionarVideo"
-        android:text="@string/edcv_btn_anexar_vidio"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toStartOf="@+id/guideline21"
         app:layout_constraintStart_toStartOf="parent" />
@@ -158,38 +131,8 @@
         android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
         android:onClick="excvAudio"
-        android:text="@string/edcv_btn_excluir"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/edcv_btn_img_exc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline21" />
-
-    <Button
-        android:id="@+id/edcv_btn_img_exc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:onClick="excvImagem"
-        android:text="@string/edcv_btn_excluir"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/edcv_btn_vid_exc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline21" />
-
-    <Button
-        android:id="@+id/edcv_btn_vid_exc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="excvVideo"
         android:text="@string/edcv_btn_excluir"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
@@ -209,32 +152,6 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/edcv_btn_aud"
         app:layout_constraintEnd_toStartOf="@+id/guideline21"
         app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/edcv_txt_inf_img"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:gravity="center_vertical"
-        android:textColor="@color/white"
-        android:textSize="8sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/edcv_btn_img"
-        app:layout_constraintEnd_toStartOf="@+id/guideline21"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/edcv_txt_inf_vid"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:gravity="center_vertical"
-        android:textColor="@color/white"
-        android:textSize="8sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/edcv_btn_vid"
-        app:layout_constraintEnd_toStartOf="@+id/guideline21"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
