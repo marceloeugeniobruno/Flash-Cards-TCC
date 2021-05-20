@@ -157,5 +157,19 @@
     <string name="edcv_btn_salvarmais">+1</string>
     <string name="edcv_btn_excluir">excluir</string>
 
+    <!-- Textos da tela Editor de baralhos-->
+
+    <string name="edb_btn_excluir">excluir</string>
+    <string name="edb_btn_voltar">Voltar</string>
+    <string name="edb_tex_frente">Texto Frente</string>
+    <string name="edb_tex_verso">Texto Verso</string>
+    <string name="edb_dia_titulo">Excluir Baralho</string>
+    <string name="edb_dia_mensage">Vecê quer excluir o baralho?</string>
+    <string name="edb_dia_confirmaçao">Para garantir, você realmente quer excluir o baralho?</string>
+    <string name="edb_dia_sim">SIM</string>
+    <string name="edb_dia_nao">NÃO</string>
+
+
+
 
 </resources>
