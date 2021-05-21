@@ -20,8 +20,13 @@ import com.example.flashcards.activity.BaralhoComumActivity;
 import com.example.flashcards.activity.BaralhoIdiomasActivity;
 import com.example.flashcards.activity.EditorDeCartasActivity;
 import com.example.flashcards.activity.MainActivity;
+import com.example.flashcards.config.ConfiguracaoFirebase;
+import com.example.flashcards.helper.Base64Custon;
 import com.example.flashcards.model.Baralho;
 import com.example.flashcards.model.Carta;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -39,7 +44,6 @@ public class AdapterEditorDeBaralho extends RecyclerView.Adapter<AdapterEditorDe
         this.nomeBaralho = nomeBaralho;
 
     }
-
     @NonNull
     @Override
     public EditorBararalhoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -116,7 +120,52 @@ public class AdapterEditorDeBaralho extends RecyclerView.Adapter<AdapterEditorDe
                     dialog.setNegativeButton(R.string.edb_dia_excluir, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // confirmacao();
+                            AlertDialog.Builder dialog2 = new AlertDialog.Builder(context);
+                            dialog2.setTitle(R.string.edb_dia_excluir);
+                            dialog2.setMessage(R.string.edb_dia_mensage3);
+                            dialog2.setPositiveButton(R.string.edb_dia_sim, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    StorageReference storageReference = ConfiguracaoFirebase.getFirebaseStorage();
+                                    String af = textoEndAuF.getText().toString();
+                                    String av = textoEndauV.getText().toString();
+
+                                    DatabaseReference firebase = ConfiguracaoFirebase.getDatabase();
+                                    FirebaseAuth autenticacao = ConfiguracaoFirebase.getAuth();
+                                    String email = Base64Custon.codificarBase64(autenticacao.getCurrentUser().getEmail());
+
+                                    if (!af.equals("")){
+                                        StorageReference arquivo = storageReference
+                                                .child(email)
+                                                .child(nomebaralho)
+                                                .child(textoid.getText().toString())
+                                                .child("frenteAudio.mp3");
+                                        arquivo.delete();
+                                    }
+                                    if (!av.equals("")){
+                                        StorageReference arquivo = storageReference
+                                                .child(email)
+                                                .child(nomebaralho)
+                                                .child(textoid.getText().toString())
+                                                .child("versoAudio.mp3");
+                                        arquivo.delete();
+                                    }
+                                    DatabaseReference cartaRef = ConfiguracaoFirebase.getDatabase();
+                                    cartaRef.child(email)
+                                            .child(nomebaralho)
+                                            .child("listaCartas")
+                                            .child(textoid.getText().toString())
+                                            .removeValue();
+                                }
+                            });
+
+                            dialog2.setNegativeButton(R.string.edb_dia_nao, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            dialog2.create();
+                            dialog2.show();
                         }
                     });
                     //criar e exibir
