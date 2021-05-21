@@ -60,49 +60,23 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
 
     //arquivo de preferências
     private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+
     //referencia do storage do firebase
     private StorageReference storage;
     //cria o objeto carta
     Carta carta;
 
     private boolean uploadOK = true;
-    private String enderecoUtil;
 
     private String [] permissoees = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
-    /*
-    private Button excImagem;
-    private Button excVideo;
-    private Button addImagem;
-    private Button addVideo;
-    private TextView infoImagem;
-    private TextView infoVideo;
-    private String versoImagem = "";
-    private String versoVideo = "";
-
-     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor_de_cartas_verso);
-        /*
-        excImagem= findViewById(R.id.edcv_btn_img_exc);
-        excVideo = findViewById(R.id.edcv_btn_vid_exc);
-        addImagem= findViewById(R.id.edcv_btn_img);
-        addVideo = findViewById(R.id.edcv_btn_vid);
-        infoImagem= findViewById(R.id.edcv_txt_inf_img);
-        infoVideo = findViewById(R.id.edcv_txt_inf_vid);
-        versoImagem = preferences.getString("endIV", "");
-        if(!versoImagem.equals("")){
-            alteraBttImagem(versoImagem);
-        }
-        versoVideo = preferences.getString("endVV", "");
-        if(!versoVideo.equals("")){
-            alteraBttVideo(versoVideo);
-        }
-         */
 
         Permissoes.validarPermissoes(permissoees, this, 1);
         excAudio = findViewById(R.id.edcv_btn_aud_exc);
@@ -120,18 +94,18 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
         flag = dados.getInt("flag");
 
         textoVerso.setText(preferences.getString("textoVerso", ""));
-
         versoAudio = preferences.getString("endAV", "");
+
         if(!versoAudio.equals("")){
             alteraBttAudio(versoAudio);
         }
 
-        //para flag = 2 que é para textos com áudio, não é para colocar nem vídeos nem imagens
-
         if(flag == 2 || flag == 4){
             addAudio.setVisibility(View.INVISIBLE);
-            //addImagem.setVisibility(View.INVISIBLE);
-            //addVideo.setVisibility(View.INVISIBLE);
+        }
+        if(flag == 3){
+            Button btn = findViewById(R.id.edcv_btn_add);
+            btn.setText("salvar");
         }
     }
 
@@ -140,22 +114,15 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
         startActivityForResult(i, 1);
     }
 
-    public void edcvAdicionarImagem(View view){
-        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(i, 2);
-
-    }
-
-    public void edcvAdicionarVideo(View view){
-        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(i, 3);
-    }
 
     public void excvAudio(View view){
         excAudio.setVisibility(View.INVISIBLE);
         infoAudio.setText("");
         infoAudio.setVisibility(View.INVISIBLE);
         addAudio.setVisibility(View.VISIBLE);
+        editor = preferences.edit();
+        editor.putString("endAVWEB","");
+        editor.apply();
     }
 
 
@@ -176,13 +143,6 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
             if (requestCode == 1){
                 alteraBttAudio(data.getDataString());
             }
-            /*
-            else if (requestCode == 2){
-                alteraBttImagem(data.getDataString());
-            }else if(requestCode == 3){
-                alteraBttVideo(data.getDataString());
-            }
-             */
         }
     }
 
@@ -195,6 +155,7 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
         criarCarta();
         if(verificar()) {
             limparESalvar();
+            intent.putExtra("flag", 1);
             startActivity(intent);
             finish();
         }
@@ -210,10 +171,21 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
 
     public void criarCarta(){
         //cria objeto e insere as variaveis iniciais dos objetos.
-        carta = new Carta(nomeBaralho);
+
         if (flag > 2) {
+            carta = new Carta();
             carta.setDias(0);
             carta.setMultiplicador(0);
+            String id = preferences.getString("identificador", "");
+            if (!id.equals("")){
+                carta.setIdentificador(id);
+                carta.setNomeBaralho(nomeBaralho);
+                carta.setEndAudioFrenteWeb(preferences.getString("endAFWEB", ""));
+                carta.setEndAudioVersoWeb(preferences.getString("endAVWEB", ""));
+            }
+
+        }else{
+            carta = new Carta(nomeBaralho);
         }
 
         carta.setTextoFrente(preferences.getString("textoFrente", ""));
@@ -234,12 +206,6 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
     public boolean verificar(){
         versoTexto = textoVerso.getText().toString();
         versoAudio = infoAudio.getText().toString();
-        /*
-        versoImagem = infoImagem.getText().toString();
-        versoVideo = infoVideo.getText().toString();
-        if (!versoAudio.equals("")|| !versoTexto.equals("")|| !versoImagem.equals("")|| !versoVideo.equals("")) {
-         */
-
 
         if (!versoAudio.equals("")|| !versoTexto.equals("")) {
             if (flag == 1 || flag == 3) {
@@ -285,13 +251,12 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
         //variaveis da carta frente
         editor.putString("textoFrente","");
         editor.putString("endAF","");
-        editor.putString("endIF","");
-        editor.putString("endVF","");
+        editor.putString("endAFWEB","");
+
         //variaveis da carta verso
         editor.putString("textoVerso","");
         editor.putString("endAV","");
-        editor.putString("endIV","");
-        editor.putString("endVV","");
+        editor.putString("endAVWEB","");
         editor.commit();
     }
 
@@ -300,74 +265,60 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
         versoAudio = infoAudio.getText().toString();
         String frenteAudio = preferences.getString("endAF", "");
         DatabaseReference firebase = ConfiguracaoFirebase.getDatabase();
-
-
         if(!versoAudio.equals("")){
-            upLoad(versoAudio, "versoAudio.mp3", "endAudioVerso");
+            upLoad(versoAudio, "versoAudio.mp3", "endAudioVersoWEB","endAudioVerso" );
             }
         if(!frenteAudio.equals("")){
-            upLoad(frenteAudio, "frenteAudio.mp3", "endAudioFrente");
+            upLoad(frenteAudio, "frenteAudio.mp3", "endAudioFrenteWEB", "endAudioFrente");
         }
         return uploadOK;
 
-        /*
-        //todo: implementar itens depois da entraga do Artigo
-        Essa função verifica se tem algum arquivo anexado e
-        versoImagem = infoImagem.getText().toString();
-        versoVideo = infoVideo.getText().toString();
-        if(!versoImagem.equals("")){
-            upLoad(versoImagem, "versoImagem.jpg");
-        }
-        if(!versoVideo.equals("")){
-            upLoad(versoVideo, "versoVideo.mp4");
-        }
-        String frenteImagem = preferences.getString("endIF", "");
-        String frenteVideo = preferences.getString("endVF", "");
-
-        if(!frenteImagem.equals("")){
-            upLoad(frenteImagem, "frenteImagemm.jpg");
-        }
-        if(!frenteVideo.equals("")){
-            upLoad(frenteVideo, "frenteVideo.mp4");
-        }
-         */
     }
 
-    public void upLoad(String url, String nome,String onde){
-        storage = ConfiguracaoFirebase.getFirebaseStorage();
-        final StorageReference salvararquivos = storage
-                .child(email)
-                .child(nomeBaralho)
-                .child(carta.getIdentificador())
-                .child(nome);
-
+    public void upLoad(String url, String nome,String ondeWeb, String ondeLocal){
         //Fazer upload do arquivo
-        UploadTask uploadTask = salvararquivos.putFile( Uri.parse(url) );
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>(){
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                salvararquivos.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        Uri endereco = task.getResult();
-                        assert endereco != null;
-                        DatabaseReference firebase = ConfiguracaoFirebase.getDatabase();
-                        firebase.child(email)
-                                .child(nomeBaralho)
-                                .child("listaCartas")
-                                .child(carta.getIdentificador())
-                                .child(onde)
-                                .setValue(endereco.toString());
+        try {
+            storage = ConfiguracaoFirebase.getFirebaseStorage();
+            final StorageReference salvararquivos = storage
+                    .child(email)
+                    .child(nomeBaralho)
+                    .child(carta.getIdentificador())
+                    .child(nome);
+            UploadTask uploadTask = salvararquivos.putFile(Uri.parse(url));
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    salvararquivos.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            Uri endereco = task.getResult();
+                            assert endereco != null;
+                            DatabaseReference firebase = ConfiguracaoFirebase.getDatabase();
+                            firebase.child(email)
+                                    .child(nomeBaralho)
+                                    .child("listaCartas")
+                                    .child(carta.getIdentificador())
+                                    .child(ondeWeb)
+                                    .setValue(endereco.toString());
 
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                uploadOK = false;
-            }
-        });
+                            firebase.child(email)
+                                    .child(nomeBaralho)
+                                    .child("listaCartas")
+                                    .child(carta.getIdentificador())
+                                    .child(ondeLocal)
+                                    .setValue(url);
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    uploadOK = false;
+                }
+            });
+        }catch (Exception e){
+            Log.i("FIREBASE", "Erro providencial pois o nome do arquivo é um endereço web");
+        }
     }
 
 
@@ -386,43 +337,6 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
 
-        /*
-        editor.putString("endIV", infoImagem.getText().toString());
-        editor.putString("endVV", infoVideo.getText().toString());
-         */
     }
-
-    /*
-        public void excvImagem(View view){
-        excImagem.setVisibility(View.INVISIBLE);
-        infoImagem.setText("");
-        infoImagem.setVisibility(View.INVISIBLE);
-        addImagem.setVisibility(View.VISIBLE);
-    }
-
-    public void excvVideo(View view){
-        excVideo.setVisibility(View.INVISIBLE);
-        infoVideo.setText("");
-        infoVideo.setVisibility(View.INVISIBLE);
-        addVideo.setVisibility(View.VISIBLE);
-    }
-
-        public void alteraBttImagem(String endereco){
-        excImagem.setVisibility(View.VISIBLE);
-        infoImagem.setText(endereco);
-        infoImagem.setVisibility(View.VISIBLE);
-        addImagem.setVisibility(View.INVISIBLE);
-    }
-
-    public void alteraBttVideo(String endereco){
-        excVideo.setVisibility(View.VISIBLE);
-        infoVideo.setText(endereco);
-        infoVideo.setVisibility(View.VISIBLE);
-        addVideo.setVisibility(View.INVISIBLE);
-
-    }
-
-     */
-
 
 }

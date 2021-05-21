@@ -71,7 +71,7 @@ public class EditorDeBaralhoActivity extends AppCompatActivity {
             }
         });
         //configurar adapter
-        adapterCarta = new AdapterEditorDeBaralho(listaDeCartas, this);
+        adapterCarta = new AdapterEditorDeBaralho(listaDeCartas, this, nomeBaralho);
         //configurar recycleviw
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

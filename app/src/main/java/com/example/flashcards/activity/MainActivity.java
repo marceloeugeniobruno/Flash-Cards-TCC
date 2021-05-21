@@ -28,7 +28,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    protected final static String ARQUIVO_PREFERENCIAS = "arquivoPreferencia";
+    public final static String ARQUIVO_PREFERENCIAS = "arquivoPreferencia";
     private String email;
     private DatabaseReference database = ConfiguracaoFirebase.getDatabase();
     private DatabaseReference usuario;
@@ -49,11 +49,14 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("endAF","");
         editor.putString("endIF","");
         editor.putString("endVF","");
+        editor.putString("endAFWEB","");
+
         //variaveis da carta verso
         editor.putString("textoVerso","");
         editor.putString("endAV","");
         editor.putString("endIV","");
         editor.putString("endVV","");
+        editor.putString("endAVWEB","");
 
         editor.commit();
     }

@@ -15,8 +15,35 @@ public class Carta {
     private String endImagemVerso;
     private String endVideoFrente;
     private String endVideoVerso;
+    private String nomeBaralho;
     private int dias;
     private int multiplicador;
+    private String endAudioFrenteWeb;
+    private String endAudioVersoWeb;
+
+    public String getEndAudioFrenteWeb() {
+        return endAudioFrenteWeb;
+    }
+
+    public void setEndAudioFrenteWeb(String endAudioFrenteWeb) {
+        this.endAudioFrenteWeb = endAudioFrenteWeb;
+    }
+
+    public String getEndAudioVersoWeb() {
+        return endAudioVersoWeb;
+    }
+
+    public void setEndAudioVersoWeb(String endAudioVersoWeb) {
+        this.endAudioVersoWeb = endAudioVersoWeb;
+    }
+
+    public String getNomeBaralho() {
+        return nomeBaralho;
+    }
+
+    public void setNomeBaralho(String nomeBaralho) {
+        this.nomeBaralho = nomeBaralho;
+    }
 
     public Carta(String nomeBaralho) {
         /*

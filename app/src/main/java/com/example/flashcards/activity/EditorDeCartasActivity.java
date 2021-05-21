@@ -40,6 +40,7 @@ public class EditorDeCartasActivity extends AppCompatActivity {
     //variáveis frente
     private String frenteTexto = "";
     private String frenteAudio;
+    private SharedPreferences.Editor editor;
 
     /*
     private Button excImagem;
@@ -83,9 +84,11 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         //arquivo de preferencias
         preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
 
+
         //recuperando dados
         Bundle dados = getIntent().getExtras();
         nomeBaralho = dados.getString("nomeBaralho");
+        Log.i("marcelo", nomeBaralho);
         tipo = dados.getString("tipo");
         flag = dados.getInt("flag");
         //textos frente
@@ -95,14 +98,6 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         if(!frenteAudio.equals("")){
             alteraBttAudio(frenteAudio);
         }
-        /*
-        frenteImagem = preferences.getString("endIF", "");
-        if(!frenteImagem.equals("")){alteraBttImagem(frenteImagem);}
-        frenteVideo = preferences.getString("endVF", "");
-        if(!frenteVideo.equals("")){alteraBttVideo(frenteVideo);}
-        //para flag = 2 que é para textos com áudio, não é para colocar nem vídeos nem imagens
-        if(flag == 2){addImagem.setVisibility(View.INVISIBLE);addVideo.setVisibility(View.INVISIBLE);}
-         */
     }
 
 
@@ -111,45 +106,18 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         startActivityForResult(i, 1);
     }
 
-    public void edcAdicionarImagem(View view){
-        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(i, 2);
 
-    }
-
-    public void edcAdicionarVideo(View view){
-        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(i, 3);
-    }
 
     public void excAudio(View view){
         excAudio.setVisibility(View.INVISIBLE);
         infoAudio.setText("");
         infoAudio.setVisibility(View.INVISIBLE);
         addAudio.setVisibility(View.VISIBLE);
+        editor = preferences.edit();
+        editor.putString("endAFWEB","");
+        editor.apply();
+
     }
-/*
-    public void excImagem(View view){excImagem.setVisibility(View.INVISIBLE);infoImagem.setText("");
-        infoImagem.setVisibility(View.INVISIBLE);addImagem.setVisibility(View.VISIBLE);}
-
-    public void excVideo(View view){excVideo.setVisibility(View.INVISIBLE);infoVideo.setText("");
-    infoVideo.setVisibility(View.INVISIBLE);addVideo.setVisibility(View.VISIBLE);}
-
-        public void alteraBttImagem(String endereco){
-        excImagem.setVisibility(View.VISIBLE);
-        infoImagem.setText(endereco);
-        infoImagem.setVisibility(View.VISIBLE);
-        addImagem.setVisibility(View.INVISIBLE);
-    }
-
-    public void alteraBttVideo(String endereco){
-        excVideo.setVisibility(View.VISIBLE);
-        infoVideo.setText(endereco);
-        infoVideo.setVisibility(View.VISIBLE);
-        addVideo.setVisibility(View.INVISIBLE);
-    }
-
- */
 
     public void alteraBttAudio(String endereco){
         excAudio.setVisibility(View.VISIBLE);
@@ -182,16 +150,20 @@ public class EditorDeCartasActivity extends AppCompatActivity {
 
     public void edcFinalizar(View view){
 
-        SharedPreferences.Editor editor = preferences.edit();
+        editor = preferences.edit();
         //flags da carta frente
         editor.putString("textoFrente","");
         editor.putString("endAF","");
         editor.putString("endIF","");
         editor.putString("endVF","");
+        editor.putString("endAFWEB","");
+
+        editor.putString("endAVWEB","");
         editor.putString("textoVerso","");
         editor.putString("endAV","");
         editor.putString("endIV","");
         editor.putString("endVV","");
+
         editor.apply();
         finish();
 
@@ -201,12 +173,6 @@ public class EditorDeCartasActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         String frenteTexto = textoFrente.getText().toString();
         frenteAudio = infoAudio.getText().toString();
-        /*
-        frenteVideo = infoVideo.getText().toString();
-        frenteImagem = infoImagem.getText().toString();
-        editor.putString("endIF", frenteImagem);
-        editor.putString("endVF", frenteVideo);
-         */
 
         editor.putString("textoFrente", frenteTexto);
         editor.putString("endAF", frenteAudio);
@@ -219,10 +185,10 @@ public class EditorDeCartasActivity extends AppCompatActivity {
 
         if (!frenteAudio.equals("")
                 || !frenteTexto.equals("")){
-            if (flag == 1) {
+            if (flag == 1 || flag == 3) {
                 startActivity(editcartaVerso);
                 finish();
-            }else if (flag == 2){
+            }else if (flag == 2 || flag == 4){
                 if (!frenteAudio.equals("") && !frenteTexto.equals("")){
                     startActivity(editcartaVerso);
                     finish();

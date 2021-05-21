@@ -168,6 +168,11 @@
     <string name="edb_dia_confirmaçao">Para garantir, você realmente quer excluir o baralho?</string>
     <string name="edb_dia_sim">SIM</string>
     <string name="edb_dia_nao">NÃO</string>
+    <string name="edb_dia_editar">Editar</string>
+    <string name="edb_dia_excluir">excluir carta</string>
+    <string name="edb_dia_mensage2">Vecê quer excluir o baralho?</string>
+    <string name="edb_dia_confirmaçao2">Para garantir, você realmente quer excluir o baralho?</string>
+    <string name="edb_dia_titulo2">Editar ou Excluir</string>
 
 
 
