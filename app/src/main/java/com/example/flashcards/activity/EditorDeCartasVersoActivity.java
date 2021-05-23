@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,12 +39,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class EditorDeCartasVersoActivity extends AppCompatActivity {
     //botões
     private Button excAudio;
     private Button addAudio;
-
     //texto views
     private TextView infoAudio;
     private EditText textoVerso;
@@ -52,27 +53,20 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
     private String nomeBaralho;
     private String tipo;
     private String email;
-
     //variaveis do verso
     private String versoTexto = "";
     private String versoAudio = "";
-
-
     //arquivo de preferências
     private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
-
-    //referencia do storage do firebase
-    private StorageReference storage;
     //cria o objeto carta
     Carta carta;
-
     private boolean uploadOK = true;
 
     private String [] permissoees = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,13 +80,11 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
 
         //arquivo de preferencias
         preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
-
         //recuperando dados
         Bundle dados = getIntent().getExtras();
-        nomeBaralho = dados.getString("nomeBaralho");
-        tipo = dados.getString("tipo");
+        nomeBaralho = preferences.getString("nomeBaralho", "");
+        tipo = preferences.getString("tipoBaralho", "");
         flag = dados.getInt("flag");
-
         textoVerso.setText(preferences.getString("textoVerso", ""));
         versoAudio = preferences.getString("endAV", "");
 
@@ -120,7 +112,7 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
         infoAudio.setText("");
         infoAudio.setVisibility(View.INVISIBLE);
         addAudio.setVisibility(View.VISIBLE);
-        editor = preferences.edit();
+        SharedPreferences.Editor editor = preferences.edit();
         editor.putString("endAVWEB","");
         editor.apply();
     }
@@ -195,7 +187,7 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
 
         DatabaseReference firebase = ConfiguracaoFirebase.getDatabase();
         FirebaseAuth autenticacao = ConfiguracaoFirebase.getAuth();
-        email = Base64Custon.codificarBase64(autenticacao.getCurrentUser().getEmail());
+        email = Base64Custon.codificarBase64(Objects.requireNonNull(Objects.requireNonNull(autenticacao.getCurrentUser()).getEmail()));
         firebase.child(email)
                 .child(nomeBaralho)
                 .child("listaCartas")
@@ -257,7 +249,7 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
         editor.putString("textoVerso","");
         editor.putString("endAV","");
         editor.putString("endAVWEB","");
-        editor.commit();
+        editor.apply();
     }
 
     public boolean upLoadsarquivos(){
@@ -278,7 +270,8 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
     public void upLoad(String url, String nome,String ondeWeb, String ondeLocal){
         //Fazer upload do arquivo
         try {
-            storage = ConfiguracaoFirebase.getFirebaseStorage();
+            //referencia do storage do firebase
+            StorageReference storage = ConfiguracaoFirebase.getFirebaseStorage();
             final StorageReference salvararquivos = storage
                     .child(email)
                     .child(nomeBaralho)
@@ -321,22 +314,16 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
         }
     }
 
-
     public void edcvVoltar(View view){
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("textoVerso", textoVerso.getText().toString());
         editor.putString("endAV", infoAudio.getText().toString());
-
         editor.apply();
 
         Intent intent = new Intent(EditorDeCartasVersoActivity.this, EditorDeCartasActivity.class);
-        intent.putExtra("tipo", tipo);
-        intent.putExtra("nomeBaralho", nomeBaralho);
         intent.putExtra("flag", flag);
-
         startActivity(intent);
         finish();
-
     }
 
 }

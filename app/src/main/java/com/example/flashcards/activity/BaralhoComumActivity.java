@@ -1,6 +1,7 @@
 package com.example.flashcards.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -39,13 +40,22 @@ public class BaralhoComumActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        TextView textoNome = findViewById(R.id.pbc_tex_nome);
-        textoDias = findViewById(R.id.pbc_tex_dias);
-        textoCartas = findViewById(R.id.pbc_tex_cartas);
-        Bundle dados = getIntent().getExtras();
-        nomeBaralho = dados.getString("nomeBaralho");
-        textoNome.setText(nomeBaralho);
-        pegarValores();
+        SharedPreferences preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
+        boolean deletado = preferences.getBoolean("deletado", false);
+        if(!deletado) {
+            TextView textoNome = findViewById(R.id.pbc_tex_nome);
+            textoDias = findViewById(R.id.pbc_tex_dias);
+            textoCartas = findViewById(R.id.pbc_tex_cartas);
+            nomeBaralho = preferences.getString("nomeBaralho", "");
+            textoNome.setText(nomeBaralho);
+            pegarValores();
+        }else{
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("deletado",false);
+            editor.apply();
+            usuario.removeEventListener(valueEventListenerBcomun);
+            finish();
+        }
     }
 
     public void pbcTelaPrincipal(View view){
@@ -76,6 +86,7 @@ public class BaralhoComumActivity extends AppCompatActivity {
 
         Intent editorBaralho = new Intent(BaralhoComumActivity.this, EditorDeBaralhoActivity.class);
         editorBaralho.putExtra("nomeBaralho", nomeBaralho);
+        usuario.removeEventListener(valueEventListenerBcomun);
         startActivity(editorBaralho);
     }
 

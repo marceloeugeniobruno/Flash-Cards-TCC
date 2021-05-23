@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ public class BaralhoIdiomasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_baralho_idiomas);
+
     }
 
     public void pbiTelaPrincipal(View view){
@@ -77,21 +78,32 @@ public class BaralhoIdiomasActivity extends AppCompatActivity {
     public void pbiEditarBaralhoIdiomas(View view){
         Intent editorDeBaralho = new Intent(BaralhoIdiomasActivity.this, EditorDeBaralhoIdiomasActivity.class);
         editorDeBaralho.putExtra("nomeBaralho", nomeBaralho);
+        usuario.removeEventListener(valueEventListenerBidiomas);
         startActivity(editorDeBaralho);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        TextView textoNome = findViewById(R.id.pbi_txt_nomeBar);
-        textoDias = findViewById(R.id.pbi_tex_dias);
-        textoCartas = findViewById(R.id.pbi_tex_cartas);
-        textoTextos = findViewById(R.id.pbi_tex_textos);
-        textoPalavrasUni = findViewById(R.id.pbi_tex_palavras);
-        Bundle dados = getIntent().getExtras();
-        nomeBaralho = dados.getString("nomeBaralho");
-        textoNome.setText(nomeBaralho);
-        pegarValores();
+        SharedPreferences preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
+        boolean naoDeletado = preferences.getBoolean("deletado",false);
+        if(!naoDeletado) {
+            setContentView(R.layout.activity_baralho_idiomas);
+            TextView textoNome = findViewById(R.id.pbi_txt_nomeBar);
+            textoDias = findViewById(R.id.pbi_tex_dias);
+            textoCartas = findViewById(R.id.pbi_tex_cartas);
+            textoTextos = findViewById(R.id.pbi_tex_textos);
+            textoPalavrasUni = findViewById(R.id.pbi_tex_palavras);
+            nomeBaralho = preferences.getString("nomeBaralho", "");
+            textoNome.setText(nomeBaralho);
+            pegarValores();
+        }else{
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("deletado",false);
+            editor.apply();
+            finish();
+        }
+
     }
 
     public void pegarValores(){

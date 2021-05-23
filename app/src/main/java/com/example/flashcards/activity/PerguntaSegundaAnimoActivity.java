@@ -3,13 +3,13 @@ package com.example.flashcards.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.flashcards.R;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
 
 public class PerguntaSegundaAnimoActivity extends AppCompatActivity {
 
-    private String nomeBaralho;
     private String tipo;
     private int nCartas;
 
@@ -18,10 +18,9 @@ public class PerguntaSegundaAnimoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pergunta_segunda_animo);
         Bundle dados = getIntent().getExtras();
-
-        nomeBaralho = dados.getString("nomeBaralho");
+        SharedPreferences preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
         nCartas = dados.getInt("nCartas");
-        tipo = dados.getString("tipo");
+        tipo = preferences.getString("tipoBaralho", "");
     }
     public void animado(View view){
         if(tipo.equals("Comum")){
@@ -51,9 +50,8 @@ public class PerguntaSegundaAnimoActivity extends AppCompatActivity {
         }else{
             proxima = new Intent(PerguntaSegundaAnimoActivity.this, GrupoActivity.class);
         }
-        proxima.putExtra("nomeBaralho", nomeBaralho);
+
         proxima.putExtra("nCartas", nCartas);
-        proxima.putExtra("tipo", tipo);
         finish();
         startActivity(proxima);
     }

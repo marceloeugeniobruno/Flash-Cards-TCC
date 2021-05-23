@@ -3,6 +3,7 @@ package com.example.flashcards.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -82,28 +83,34 @@ public class CriarBaralhoActivity extends AppCompatActivity {
                 FirebaseAuth autenticacao = ConfiguracaoFirebase.getAuth();
                 DatabaseReference firebase = ConfiguracaoFirebase.getDatabase();
                 String email = Base64Custon.codificarBase64(autenticacao.getCurrentUser().getEmail());
+                SharedPreferences preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("nomeBaralho",nome);
+
+                editor.commit();
                 //TODO: Criar método de criar alarme ou lembrete
                 if (rdFcCom.isChecked()) {
                     baralho.setTipo("Comum");
+                    editor.putString("tipoBaralho","Comum");
+                    editor.apply();
                     firebase.child(email).child(nome).setValue(baralho);
                     finish();
                     Intent baralhoComum = new Intent(getApplicationContext(), BaralhoComumActivity.class);
-                    baralhoComum.putExtra("nomeBaralho", nome);
                     startActivity(baralhoComum);
                 } else if (rdFcId.isChecked() || rdFcIdIng.isChecked()) {
                     baralho.setTipo("Idiomas");
+                    editor.putString("tipoBaralho","Idiomas");
+                    editor.apply();
                     if (rdFcId.isChecked()) {
                         firebase.child(email).child(nome).setValue(baralho);
                         finish();
                         Intent infoc = new Intent(getApplicationContext(), InformacaoIdiomasActivity.class);
-                        infoc.putExtra("nomeBaralho", nome);
                         startActivity(infoc);
                     } else if (rdFcIdIng.isChecked()) {
                         firebase.child(email).child(nome).setValue(baralho);
                         //TODO: Criar método para baixar grupos nativos do app
                         Intent infIng = new Intent(getApplicationContext(), InformacaoIdiomasIngActivity.class);
                         finish();
-                        infIng.putExtra("nomeBaralho", nome);
                         startActivity(infIng);
                     }
                 }

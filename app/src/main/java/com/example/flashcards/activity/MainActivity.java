@@ -58,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("endVV","");
         editor.putString("endAVWEB","");
 
+        editor.putBoolean("deletado",false);
+        editor.putString("nomeBaralho","");
+        editor.putString("tipoBaralho","");
+
         editor.commit();
     }
 

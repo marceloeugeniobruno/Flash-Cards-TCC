@@ -2,6 +2,7 @@ package com.example.flashcards.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,8 +35,9 @@ public class AdapterPrincipal extends RecyclerView.Adapter<AdapterPrincipal.Prin
     public PrincipalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemLista = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.adapter_lista_principal, parent, false);
+        SharedPreferences preferences = context.getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
 
-        return new PrincipalViewHolder(itemLista, context);
+        return new PrincipalViewHolder(itemLista, context, preferences);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class AdapterPrincipal extends RecyclerView.Adapter<AdapterPrincipal.Prin
         TextView nomeBaralho;
         TextView tipo;
 
-        public PrincipalViewHolder(@NonNull View itemView, Context context) {
+        public PrincipalViewHolder(@NonNull View itemView, Context context, SharedPreferences preferences) {
             super(itemView);
             nomeBaralho = itemView.findViewById(R.id.adp_pri_titulo);
             tipo = itemView.findViewById(R.id.adp_pri_tipo);
@@ -64,13 +66,15 @@ public class AdapterPrincipal extends RecyclerView.Adapter<AdapterPrincipal.Prin
                 public void onClick(View v) {
                     String confereTipo = tipo.getText().toString();
                     String nome = nomeBaralho.getText().toString();
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("nomeBaralho",nome);
+                    editor.putString("tipoBaralho",confereTipo);
+                    editor.apply();
                     if(confereTipo.equals("Idiomas")){
                         Intent irBaraComum = new Intent(context, BaralhoIdiomasActivity.class);
-                        irBaraComum.putExtra("nomeBaralho", nome);
                         context.startActivity(irBaraComum);
                     }else{
                         Intent irBaraComum = new Intent(context, BaralhoComumActivity.class);
-                        irBaraComum.putExtra("nomeBaralho", nome);
                         context.startActivity(irBaraComum);
                     }
                     Log.i("FIREBASE","Element " + nomeBaralho.getText() + " clicked.");

@@ -36,7 +36,6 @@ public class AdapterEditorDeBaralho extends RecyclerView.Adapter<AdapterEditorDe
     List<Carta> cartaList;
     Carta carta;
     String nomeBaralho;
-    private SharedPreferences preferences;
 
     public AdapterEditorDeBaralho(List<Carta> cartaLista, Context context, String nomeBaralho) {
         this.context = context;
@@ -49,7 +48,7 @@ public class AdapterEditorDeBaralho extends RecyclerView.Adapter<AdapterEditorDe
     public EditorBararalhoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemLista = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.adapter_lista_editor_baralho, parent, false);
-        preferences = context.getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
+        SharedPreferences preferences = context.getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
 
         return new EditorBararalhoViewHolder(itemLista , context, preferences, nomeBaralho);
     }

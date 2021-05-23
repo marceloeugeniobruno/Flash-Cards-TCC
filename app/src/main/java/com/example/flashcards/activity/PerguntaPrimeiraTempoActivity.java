@@ -9,8 +9,6 @@ import android.view.View;
 import com.example.flashcards.R;
 
 public class PerguntaPrimeiraTempoActivity extends AppCompatActivity {
-    private String nomeBaralho;
-    private String tipo;
     private int nCartas;
 
 
@@ -19,9 +17,7 @@ public class PerguntaPrimeiraTempoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pergunta_primeira_tempo);
         Bundle dados = getIntent().getExtras();
-        nomeBaralho = dados.getString("nomeBaralho");
         nCartas = dados.getInt("nCartas");
-        tipo = dados.getString("tipo");
     }
 
     public void comTempo(View view){
@@ -40,9 +36,7 @@ public class PerguntaPrimeiraTempoActivity extends AppCompatActivity {
     public void encaminhar(){
 
         Intent proxima = new Intent(PerguntaPrimeiraTempoActivity.this, PerguntaSegundaAnimoActivity.class);
-        proxima.putExtra("nomeBaralho", nomeBaralho);
         proxima.putExtra("nCartas", nCartas);
-        proxima.putExtra("tipo", tipo);
         finish();
         startActivity(proxima);
 

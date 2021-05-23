@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -95,6 +96,11 @@ public class EditorDeBaralhoActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 //exclui os dados do realtime datababese
                 //todo: não está excuindo
+
+                SharedPreferences preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("deletado",true);
+                editor.apply();
 
                 StorageReference storageReference = ConfiguracaoFirebase.getFirebaseStorage();
                 for(Carta c: listaDeCartas){
