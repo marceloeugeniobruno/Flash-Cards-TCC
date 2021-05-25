@@ -143,7 +143,6 @@
     <string name="edc_alerta_grupo_sem_audio">Não Foi adicionado nenhum item (textos E audios) na frente da carta</string>
 
 
-
     <!-- Textos da tela Editor de carta verso -->
 
     <string name="edcv_txt_frente">FRENTE</string>
@@ -175,7 +174,16 @@
     <string name="edb_dia_titulo2">Editar ou Excluir</string>
     <string name="edb_dia_mensage3">Para garantir, você realmente quer excluir a carta?</string>
 
-
+    <!-- Textos da tela Conjuntos-->
+    <string name="conj_btn_grupo">grupo</string>
+    <string name="conj_btn_add">+</string>
+    <string name="conj_voltar">Voltar</string>
+    <string name="conj_interrgacao">São conjunto de grupos, cada conjunto é um texto com
+    paragrafos. Cada paragrafo do texto é um grupo. Cada frase desse grupo é uma carta. Para cada
+    vez que começar a estudar. o programa irá mostrar um grupo do conjunto. Inicialmete o
+    programa ira excutar os audios do conjunto até o que está sendo estudado.</string>
+    <string name="conj_btn_interroga">"?"</string>
+    <string name="conj_txt_listaconjuto">Lista de Conjuntos</string>
 
 
 </resources>

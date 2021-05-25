@@ -15,14 +15,17 @@
         app:layout_constraintGuide_percent="0.95" />
 
     <Button
-        android:id="@+id/button23"
+        android:id="@+id/edbci_btn_grupo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:background="@drawable/botoes"
+        android:onClick="edbciGrupo"
         android:text="grupo"
+        app:backgroundTint="@color/azul_claro"
         app:layout_constraintBottom_toTopOf="@+id/guideline25"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -55,7 +58,7 @@
         android:text="@string/edb_btn_voltar"
         app:backgroundTint="@color/azul_claro"
         app:layout_constraintBottom_toTopOf="@+id/guideline25"
-        app:layout_constraintEnd_toStartOf="@+id/button23"
+        app:layout_constraintEnd_toStartOf="@+id/edbci_btn_grupo"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button19" />
 

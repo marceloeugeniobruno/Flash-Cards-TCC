@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -78,6 +79,11 @@ public class EditorDeBaralhoIdiomasActivity extends AppCompatActivity {
 
     public void edbciVoltar(View view){
         finish();
+    }
+
+    public void edbciGrupo(View view){
+        Intent intent = new Intent(EditorDeBaralhoIdiomasActivity.this, EditorDeGruposActivity.class);
+        startActivity(intent);
     }
 
     public void confirmacao(){
@@ -164,5 +170,7 @@ public class EditorDeBaralhoIdiomasActivity extends AppCompatActivity {
         super.onStop();
         usuario.removeEventListener(valueEventListenerUsuario);
     }
+
+
 
 }

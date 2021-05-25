@@ -20,6 +20,7 @@ public class Carta {
     private int multiplicador;
     private String endAudioFrenteWeb;
     private String endAudioVersoWeb;
+    private int ordem;
 
     public String getEndAudioFrenteWeb() {
         return endAudioFrenteWeb;
@@ -164,5 +165,13 @@ public class Carta {
 
     public void setMultiplicador(int multiplicador) {
         this.multiplicador = multiplicador;
+    }
+
+    public int getOrdem() {
+        return ordem;
+    }
+
+    public void setOrdem(int ordem) {
+        this.ordem = ordem;
     }
 }
