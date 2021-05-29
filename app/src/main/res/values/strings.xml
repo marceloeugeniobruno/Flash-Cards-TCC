@@ -178,12 +178,25 @@
     <string name="conj_btn_grupo">grupo</string>
     <string name="conj_btn_add">+</string>
     <string name="conj_voltar">Voltar</string>
-    <string name="conj_interrgacao">São conjunto de grupos, cada conjunto é um texto com
-    paragrafos. Cada paragrafo do texto é um grupo. Cada frase desse grupo é uma carta. Para cada
-    vez que começar a estudar. o programa irá mostrar um grupo do conjunto. Inicialmete o
-    programa ira excutar os audios do conjunto até o que está sendo estudado.</string>
     <string name="conj_btn_interroga">"?"</string>
     <string name="conj_txt_listaconjuto">Lista de Conjuntos</string>
+    <string name="conj_edt_nome">Nome do Conjunto</string>
+    <string name="conj_toast">Nome do Conjunto não informado</string>
+
+    <string name="conj_titul">"Conjuntos e Grupos</string>
+    <string name="conj_info_p1">Conjuntos e grupos</string>
+
+    <string name="conj_info_p2">São textos inteiros, com diversos paráragrafos. Cada pararáfo
+    formará um grupo, e cada grupo é dividido em frases. Quando fores estudar, o programa irá mostrar
+    apenas um grupo, mas os audios do CONJUNTO serão todos executados, até o atual grupo que
+    está sendo estudado.</string>
+
+    <string name="conj_info_p3">Após o termino do estudo de um grupo, todas as cartas contidas
+    no grupo, farão parte de seu baralho</string>
+
+    <string name="conj_info_p4">OBSERVAÇÃO: Após a criação do Conjunto, ele não poderá mais ser
+        deletado e nem renomeado. O que pode fazer é desablitar a execução do conjunto </string>
+
 
 
 </resources>

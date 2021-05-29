@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private ValueEventListener valueEventListenerUsuario;
     private List<Baralho> listaDeBaralhos = new ArrayList<>();
     private AdapterPrincipal adapterPrincipal;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //criando dados para criação das cartas
         SharedPreferences preferences = getSharedPreferences(ARQUIVO_PREFERENCIAS, 0);
-        SharedPreferences.Editor editor = preferences.edit();
+        editor = preferences.edit();
         //variaveis da carta frente
         editor.putString("textoFrente","");
         editor.putString("endAF","");
@@ -62,13 +63,15 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("nomeBaralho","");
         editor.putString("tipoBaralho","");
 
-        editor.commit();
+        editor.apply();
     }
 
 
     public void movimentacao(){
         RecyclerView recyclerView = findViewById(R.id.pri_rc);
         //criação da lista
+        editor.putString("email",email);
+        editor.apply();
         usuario = database.child(email);
         valueEventListenerUsuario = usuario.addValueEventListener(new ValueEventListener() {
             @Override

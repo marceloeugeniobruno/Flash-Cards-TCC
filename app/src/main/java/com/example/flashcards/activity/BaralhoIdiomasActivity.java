@@ -70,7 +70,7 @@ public class BaralhoIdiomasActivity extends AppCompatActivity {
     }
 
     public void pbiEditarGrupo(View view){
-        Intent editorDeGrupo = new Intent(BaralhoIdiomasActivity.this, EditorDeGruposActivity.class);
+        Intent editorDeGrupo = new Intent(BaralhoIdiomasActivity.this, ConjuntoActivity.class);
         editorDeGrupo.putExtra("nomeBaralho", nomeBaralho);
         startActivity(editorDeGrupo);
     }

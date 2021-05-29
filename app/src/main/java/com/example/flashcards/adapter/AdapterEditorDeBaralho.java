@@ -49,9 +49,9 @@ public class AdapterEditorDeBaralho extends RecyclerView.Adapter<AdapterEditorDe
         View itemLista = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.adapter_lista_editor_baralho, parent, false);
         SharedPreferences preferences = context.getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
-
         return new EditorBararalhoViewHolder(itemLista , context, preferences, nomeBaralho);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull AdapterEditorDeBaralho.EditorBararalhoViewHolder holder, int position) {
