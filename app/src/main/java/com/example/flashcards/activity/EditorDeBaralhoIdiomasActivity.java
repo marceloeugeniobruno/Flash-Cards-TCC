@@ -11,6 +11,7 @@ import com.example.flashcards.adapter.AdapterEditorDeBaralho;
 import com.example.flashcards.config.ConfiguracaoFirebase;
 import com.example.flashcards.helper.Base64Custon;
 import com.example.flashcards.model.Carta;
+import com.example.flashcards.model.Conjunto;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -82,7 +83,7 @@ public class EditorDeBaralhoIdiomasActivity extends AppCompatActivity {
     }
 
     public void edbciGrupo(View view){
-        Intent intent = new Intent(EditorDeBaralhoIdiomasActivity.this, EditorDeGruposActivity.class);
+        Intent intent = new Intent(EditorDeBaralhoIdiomasActivity.this, ConjuntoActivity.class);
         startActivity(intent);
     }
 

@@ -119,7 +119,7 @@
     <string name="pbi_btn_iniciar">Iniciar Estudos</string>
     <string name="pbi_btn_add_carta">ADD Carta</string>
     <string name="pbi_btn_add_grupo">ADD Grupo</string>
-    <string name="pbi_btn_edt_grupo">EDT Grupo</string>
+    <string name="pbi_btn_edt_grupo">EDT Conjunto</string>
     <string name="pbi_btn_voltar">Início</string>
     <string name="pbi_btn_config">Config.</string>
     <string name="pbi_btn_editar">Editar</string>
@@ -173,6 +173,7 @@
     <string name="edb_dia_confirmaçao2">Para garantir, você realmente quer excluir o baralho?</string>
     <string name="edb_dia_titulo2">Editar ou Excluir</string>
     <string name="edb_dia_mensage3">Para garantir, você realmente quer excluir a carta?</string>
+    <string name="edb_btn_conj">Conj</string>
 
     <!-- Textos da tela Conjuntos-->
     <string name="conj_btn_grupo">grupo</string>

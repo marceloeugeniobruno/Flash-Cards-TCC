@@ -24,7 +24,7 @@
         android:layout_marginRight="32dp"
         android:background="@drawable/botoes"
         android:onClick="edbciGrupo"
-        android:text="grupo"
+        android:text="@string/edb_btn_conj"
         app:backgroundTint="@color/azul_claro"
         app:layout_constraintBottom_toTopOf="@+id/guideline25"
         app:layout_constraintEnd_toEndOf="parent"
