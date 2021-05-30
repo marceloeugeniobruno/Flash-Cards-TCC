@@ -1,9 +1,10 @@
 package com.example.flashcards.model;
 
+import java.util.List;
+
 public class Conjunto {
     private String nome;
     private int ordem;
-    private boolean termino;
 
     public Conjunto() {
     }
@@ -24,11 +25,4 @@ public class Conjunto {
         this.ordem = ordem;
     }
 
-    public boolean isTermino() {
-        return termino;
-    }
-
-    public void setTermino(boolean termino) {
-        this.termino = termino;
-    }
 }

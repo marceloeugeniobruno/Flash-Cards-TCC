@@ -198,6 +198,12 @@
     <string name="conj_info_p4">OBSERVAÇÃO: Após a criação do Conjunto, ele não poderá mais ser
         deletado e nem renomeado. O que pode fazer é desablitar a execução do conjunto </string>
 
+    <!-- Textos da tela Grupo-->
+    <string name="grupo_voltar">Voltar</string>
+    <string name="grupo_habilitar">Ativo</string>
+    <string name="grupo_desabilitar">Inativo</string>
+    <string name="grupo_add_grupo">+ Grupo</string>
+
 
 
 </resources>

@@ -19,16 +19,8 @@ public class Grupo {
     public int getOrdem() {
         return ordem;
     }
-
     public void setOrdem(int ordem) {
         this.ordem = ordem;
     }
 
-    public boolean isExecutado() {
-        return executado;
-    }
-
-    public void setExecutado(boolean executado) {
-        this.executado = executado;
-    }
 }

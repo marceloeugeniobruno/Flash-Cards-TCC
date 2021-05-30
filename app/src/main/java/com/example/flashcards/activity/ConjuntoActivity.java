@@ -21,6 +21,7 @@ import com.example.flashcards.adapter.AdapterConjunto;
 import com.example.flashcards.adapter.AdapterPrincipal;
 import com.example.flashcards.config.ConfiguracaoFirebase;
 import com.example.flashcards.helper.Base64Custon;
+import com.example.flashcards.model.AuxiliarConjunto;
 import com.example.flashcards.model.Baralho;
 import com.example.flashcards.model.Conjunto;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,10 +57,7 @@ public class ConjuntoActivity extends AppCompatActivity {
     }
 
     public void listarconjunto(){
-
-
         RecyclerView recyclerView = findViewById(R.id.recycler_conj);
-
         usuario = database
                 .child(preferences.getString("email", ""))
                 .child(preferences.getString("nomeBaralho", ""))
@@ -74,7 +72,7 @@ public class ConjuntoActivity extends AppCompatActivity {
                         Conjunto conjunto = dados.getValue(Conjunto.class);
                         listaDeConjuntos.add(conjunto);
                     }catch (Exception e){
-                        Log.i("flashcards", "va se ferrar marcelo");
+                        Log.i("flashcards", "erro: " + e);
                     }
                 }
                 List<Conjunto> listaDeConjuntosAux = new ArrayList<>();
@@ -113,7 +111,6 @@ public class ConjuntoActivity extends AppCompatActivity {
         cancelar.setVisibility(View.VISIBLE);
 
     }
-
     public void ocultarBotoes(View view){
         oBtn();
     }
@@ -124,67 +121,68 @@ public class ConjuntoActivity extends AppCompatActivity {
         cancelar.setVisibility(View.INVISIBLE);
     }
 
+
+
     public void criarConjunto(View view){
         String nome = nomeConj.getText().toString();
-
         usuario = database
                 .child(preferences.getString("email", ""))
                 .child(preferences.getString("nomeBaralho", ""))
                 .child("lista conjunto");
 
-
         valueEventListenerUsuario = usuario.addValueEventListener(new ValueEventListener() {
+            ;
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<Conjunto> conj = new ArrayList<>();
-                int k = 0;
+                int j = 0;
                 for(DataSnapshot dados: snapshot.getChildren()){
-                    try {
-                        Conjunto conjunto = dados.getValue(Conjunto.class);
-                        conj.add(conjunto);
-                        k++;
-                    }catch ( Exception e){
-                        Log.i("flashCards", "marcelo, va se ferrar de novo");
-                    };
+                    Conjunto conjunto = dados.getValue(Conjunto.class);
+                    conj.add(conjunto);
+                    j++;
+
                 }
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt("tamanho", k);
-                editor.apply();
+                String nome = nomeConj.getText().toString();
+                SharedPreferences preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
+                usuario = database
+                        .child(preferences.getString("email", ""))
+                        .child(preferences.getString("nomeBaralho", ""))
+                        .child("lista conjunto");
+
+                if(!nome.equals("")) {
+                    Conjunto conjunto = new Conjunto();
+                    conjunto.setOrdem(j);
+                    String orden = "";
+                    if(conjunto.getOrdem()<9){
+                        orden = "00";
+                    }else if(conjunto.getOrdem()<99){
+                        orden = "0";
+                    }
+                    conjunto.setNome(orden + (conjunto.getOrdem() + 1) + " - "  + nome);
+                    database.child(preferences.getString("email", ""))
+                            .child(preferences.getString("nomeBaralho", ""))
+                            .child("lista conjunto")
+                            .child(conjunto.getNome())
+                            .setValue(conjunto);
+                    AuxiliarConjunto termino = new AuxiliarConjunto(false);
+                    database.child(preferences.getString("email", ""))
+                            .child(preferences.getString("nomeBaralho", ""))
+                            .child("lista conjunto")
+                            .child(conjunto.getNome())
+                            .child("termino")
+                            .setValue(termino);
+                    nomeConj.setText("");
+                    oBtn();
+                    Intent irGrupo = new Intent(ConjuntoActivity.this, GrupoActivity.class);
+                    irGrupo.putExtra("conjunto", conjunto.getNome());
+                    startActivity(irGrupo);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 //TODO: Fazer tratamento de errro
             }
         });
-
-        if(!nome.equals("")) {
-            Conjunto conjunto = new Conjunto();
-            conjunto.setOrdem(preferences.getInt("tamanho", 0));
-            String orden = "";
-            if(conjunto.getOrdem()<9){
-                orden = "00";
-            }else if(conjunto.getOrdem()<99){
-                orden = "0";
-            }
-            conjunto.setNome(orden + (conjunto.getOrdem() + 1) + " - "  + nome);
-            conjunto.setTermino(false);
-            database.child(preferences.getString("email", ""))
-                    .child(preferences.getString("nomeBaralho", ""))
-                    .child("lista conjunto")
-                    .child(conjunto.getNome())
-                    .setValue(conjunto);
-            nomeConj.setText("");
-            oBtn();
-            Intent irGrupo = new Intent(ConjuntoActivity.this, GrupoActivity.class);
-            irGrupo.putExtra("conjunto", conjunto.getNome());
-            startActivity(irGrupo);
-        }else {
-            Toast.makeText(ConjuntoActivity.this,
-                    R.string.conj_toast,
-                    Toast.LENGTH_SHORT)
-                    .show();
-        }
-
     }
 
     public void conjVoltar(View view){
@@ -216,5 +214,11 @@ public class ConjuntoActivity extends AppCompatActivity {
         super.onStart();
         preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
         listarconjunto();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        usuario.removeEventListener(valueEventListenerUsuario);
     }
 }
