@@ -75,19 +75,6 @@ public class ConjuntoActivity extends AppCompatActivity {
                         Log.i("flashcards", "erro: " + e);
                     }
                 }
-                List<Conjunto> listaDeConjuntosAux = new ArrayList<>();
-                /*
-                ordenando a lista por ordem de excecução
-                 */
-                for (int i = 0; i < listaDeConjuntos.size(); i++){
-                    for(int j = 0; j < listaDeConjuntos.size(); j ++ ){
-                        if(i == listaDeConjuntos.get(j).getOrdem()){
-                            listaDeConjuntosAux.add(listaDeConjuntos.get(j));
-                            j = listaDeConjuntos.size();
-                        }
-                    }
-                }
-                listaDeConjuntos = listaDeConjuntosAux;
                 adapterConjunto.notifyDataSetChanged();
             }
             @Override

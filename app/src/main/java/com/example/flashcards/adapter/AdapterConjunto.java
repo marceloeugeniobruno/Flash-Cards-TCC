@@ -35,9 +35,7 @@ public class AdapterConjunto extends RecyclerView.Adapter<AdapterConjunto.Conjun
         View itemLista = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.adapter_conjunto, parent, false);
 
-        SharedPreferences preferences = context.getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
-
-        return new AdapterConjunto.ConjuntoViewHolder(itemLista, context, preferences);
+        return new AdapterConjunto.ConjuntoViewHolder(itemLista, context);
     }
 
     @Override
@@ -54,7 +52,7 @@ public class AdapterConjunto extends RecyclerView.Adapter<AdapterConjunto.Conjun
     public static class ConjuntoViewHolder extends RecyclerView.ViewHolder {
         TextView nomeConjunto;
 
-        public ConjuntoViewHolder(@NonNull View itemView, Context context, SharedPreferences preferences) {
+        public ConjuntoViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
             nomeConjunto = itemView.findViewById(R.id.adp_tex_conj);
 

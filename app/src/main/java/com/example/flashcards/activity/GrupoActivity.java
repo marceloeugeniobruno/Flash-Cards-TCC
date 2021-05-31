@@ -2,7 +2,12 @@ package com.example.flashcards.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.flashcards.R;
+import com.example.flashcards.adapter.AdapterConjunto;
+import com.example.flashcards.adapter.AdapterGrupo;
 import com.example.flashcards.config.ConfiguracaoFirebase;
 import com.example.flashcards.model.AuxiliarConjunto;
 import com.example.flashcards.model.Conjunto;
@@ -18,11 +23,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GrupoActivity extends AppCompatActivity {
@@ -34,6 +41,9 @@ public class GrupoActivity extends AppCompatActivity {
     private ValueEventListener valueEventListenerUsuario;
     private SharedPreferences.Editor editor;
     private Button habilitar;
+    private List<AuxiliarConjunto> listaAux = new ArrayList<>();
+    private List<Grupo> listaDeGrupo = new ArrayList<>();
+    private AdapterGrupo adapterGrupo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +56,16 @@ public class GrupoActivity extends AppCompatActivity {
         editor.putInt("tamanho", 0);
         editor.apply();
 
-        if(verificarConjuntoAtivo()){
-            habilitar.setText(R.string.grupo_habilitar);
-        }else{
-            habilitar.setText(R.string.grupo_desabilitar);
-        }
-
         Bundle dados = getIntent().getExtras();
         TextView textView = findViewById(R.id.grupo_txt_conjunto);
         nomeConjunto = dados.getString("conjunto");
         textView.setText(nomeConjunto);
 
+        if(!verificarConjuntoAtivo()){
+            habilitar.setText(R.string.grupo_habilitar);
+        }else{
+            habilitar.setText(R.string.grupo_desabilitar);
+        }
     }
 
     public void grupoVoltar(View view){
@@ -64,24 +73,30 @@ public class GrupoActivity extends AppCompatActivity {
     }
 
     public boolean verificarConjuntoAtivo(){
+        //todo: resolver problema, caso contrário poderá dar problema nas activitys mais importantes
         usuario = database
                 .child(preferences.getString("email", ""))
                 .child(preferences.getString("nomeBaralho", ""))
-                .child("lista conjunto");
+                .child("lista conjunto")
+                .child(nomeConjunto)
+                .child("termino");
+
         valueEventListenerUsuario = usuario.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dados: snapshot.getChildren()){
-                    try {
-                        Conjunto conjunto = dados.getValue(Conjunto.class);
-                        assert conjunto != null;
-                        if(nomeConjunto.equals(conjunto.getNome())){
-                            SharedPreferences preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
-                            SharedPreferences.Editor editor = preferences.edit();
-                        }
-                    }catch ( Exception e){
-                        Log.i("flashCards", "erro : " + e);
-                    };
+                listaAux.clear();
+                try {
+                    for (DataSnapshot dados : snapshot.getChildren()) {
+                        AuxiliarConjunto aux = dados.getValue(AuxiliarConjunto.class);
+                        listaAux.add(aux);
+                    }
+                    SharedPreferences preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("termino", listaAux.get(0).isTermino());
+                    editor.apply();
+                    Log.i("FIREBASE", "lista AUX: " + listaAux.get(0).isTermino());
+                }catch (Exception e){
+                    Log.i("FIREBASE", "erro: " + e);
                 }
             }
             @Override
@@ -89,8 +104,8 @@ public class GrupoActivity extends AppCompatActivity {
                 //TODO: Fazer tratamento de errro
             }
         });
-
-        return !preferences.getBoolean("conjuntoTermino", true);
+        Log.i("FIREBASE", "Arquivo pref: " + preferences.getBoolean("termino", false));
+        return preferences.getBoolean("termino", false);
     }
 
     public void grupoAddGrupo(View view){
@@ -134,7 +149,6 @@ public class GrupoActivity extends AppCompatActivity {
             orden = "0";
         }
         grupo.setNome(orden + (grupo.getOrdem() + 1));
-        grupo.setExecutado(false);
         database.child(preferences.getString("email", ""))
                 .child(preferences.getString("nomeBaralho", ""))
                 .child("lista conjunto")
@@ -142,6 +156,16 @@ public class GrupoActivity extends AppCompatActivity {
                 .child("lista grupos")
                 .child(grupo.getNome())
                 .setValue(grupo);
+        AuxiliarConjunto aux = new AuxiliarConjunto(false);
+        database.child(preferences.getString("email", ""))
+                .child(preferences.getString("nomeBaralho", ""))
+                .child("lista conjunto")
+                .child(nomeConjunto)
+                .child("lista grupos")
+                .child(grupo.getNome())
+                .child("termino")
+                .setValue(aux);
+
 
         Intent irGrupo = new Intent(GrupoActivity.this, EditorDeGruposActivity.class);
         irGrupo.putExtra("grupo", grupo.getNome());
@@ -158,16 +182,55 @@ public class GrupoActivity extends AppCompatActivity {
             habilitado = true;
         }
         Map<String, Object> mapa = new HashMap<>();
-        Conjunto conjunto = new Conjunto();
-        conjunto.setNome(nomeConjunto);
-        mapa.put(nomeConjunto, conjunto);
+        AuxiliarConjunto auxiliarConjunto = new AuxiliarConjunto(habilitado);
+        mapa.put("termino", auxiliarConjunto);
 
         Task<Void> usuario2;
         usuario2 = database
                 .child(preferences.getString("email", ""))
                 .child(preferences.getString("nomeBaralho", ""))
                 .child("lista conjunto")
+                .child(nomeConjunto)
                 .updateChildren(mapa);
+    }
+
+    public void listarGrupo(){
+        RecyclerView recyclerView = findViewById(R.id.recycler_grupo);
+        usuario = database
+                .child(preferences.getString("email", ""))
+                .child(preferences.getString("nomeBaralho", ""))
+                .child("lista conjunto")
+                .child(nomeConjunto)
+                .child("lista grupos");
+        valueEventListenerUsuario = usuario.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listaDeGrupo.clear();
+                for (DataSnapshot dados: snapshot.getChildren()){
+                    Grupo grupo = dados.getValue(Grupo.class);
+                    listaDeGrupo.add(grupo);
+                }
+                adapterGrupo.notifyDataSetChanged();
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        adapterGrupo = new AdapterGrupo(this, listaDeGrupo, nomeConjunto);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapterGrupo);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        listarGrupo();
     }
 
     @Override
