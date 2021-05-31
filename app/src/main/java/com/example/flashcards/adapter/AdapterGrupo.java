@@ -2,7 +2,6 @@ package com.example.flashcards.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcards.R;
 import com.example.flashcards.activity.EditorDeGruposActivity;
-import com.example.flashcards.activity.GrupoActivity;
-import com.example.flashcards.activity.MainActivity;
 import com.example.flashcards.model.Grupo;
 
 import java.util.List;

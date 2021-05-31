@@ -204,6 +204,12 @@
     <string name="grupo_desabilitar">Inativo</string>
     <string name="grupo_add_grupo">+ Grupo</string>
 
+    <!-- Textos da tela edição de Grupo-->
+
+    <string name="grupo_edicao_voltar">Voltar</string>
+    <string name="grupo_edicao_texto_verso">Texto Verso</string>
+    <string name="grupo_edicao_texto_frente">Texto Frente</string>
+    <string name="grupo_edicao_add_carta">+ Carta</string>
 
 
 </resources>

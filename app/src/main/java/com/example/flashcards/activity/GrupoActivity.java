@@ -6,11 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcards.R;
-import com.example.flashcards.adapter.AdapterConjunto;
 import com.example.flashcards.adapter.AdapterGrupo;
 import com.example.flashcards.config.ConfiguracaoFirebase;
 import com.example.flashcards.model.AuxiliarConjunto;
-import com.example.flashcards.model.Conjunto;
 import com.example.flashcards.model.Grupo;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +21,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -41,8 +38,8 @@ public class GrupoActivity extends AppCompatActivity {
     private ValueEventListener valueEventListenerUsuario;
     private SharedPreferences.Editor editor;
     private Button habilitar;
-    private List<AuxiliarConjunto> listaAux = new ArrayList<>();
-    private List<Grupo> listaDeGrupo = new ArrayList<>();
+    private final List<AuxiliarConjunto> listaAux = new ArrayList<>();
+    private final List<Grupo> listaDeGrupo = new ArrayList<>();
     private AdapterGrupo adapterGrupo;
 
     @Override
@@ -61,7 +58,7 @@ public class GrupoActivity extends AppCompatActivity {
         nomeConjunto = dados.getString("conjunto");
         textView.setText(nomeConjunto);
 
-        if(!verificarConjuntoAtivo()){
+        if(verificarConjuntoAtivo()){
             habilitar.setText(R.string.grupo_habilitar);
         }else{
             habilitar.setText(R.string.grupo_desabilitar);
@@ -105,7 +102,7 @@ public class GrupoActivity extends AppCompatActivity {
             }
         });
         Log.i("FIREBASE", "Arquivo pref: " + preferences.getBoolean("termino", false));
-        return preferences.getBoolean("termino", false);
+        return !preferences.getBoolean("termino", false);
     }
 
     public void grupoAddGrupo(View view){
@@ -174,7 +171,7 @@ public class GrupoActivity extends AppCompatActivity {
 
     public void grupoHabilitar(View view){
         boolean habilitado;
-        if(!verificarConjuntoAtivo()){
+        if(verificarConjuntoAtivo()){
             habilitar.setText(R.string.grupo_habilitar);
             habilitado = false;
         }else{

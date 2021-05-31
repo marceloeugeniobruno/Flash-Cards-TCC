@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlashCards">
-        <activity android:name=".activity.ConjuntoActivity"></activity>
+        <activity android:name=".activity.EditorCartaGrupoActivity"></activity>
+        <activity android:name=".activity.ConjuntoActivity" />
         <activity android:name=".activity.EditorDeCartasVersoActivity" />
         <activity android:name=".activity.EditorDeGruposActivity" />
         <activity android:name=".activity.EditorDeBaralhoIdiomasActivity" />
