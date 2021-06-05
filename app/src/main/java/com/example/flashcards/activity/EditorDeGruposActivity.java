@@ -49,9 +49,20 @@ public class EditorDeGruposActivity extends AppCompatActivity {
     }
 
     public void edgCriaCarta (View view){
+        int numero = listaDeCarta.size() + 1;
+        String nomeCarta;
+        if (numero < 10){
+            nomeCarta = "00" + numero;
+        }else{
+            nomeCarta = "0" + numero;
+        }
         Intent intent = new Intent(EditorDeGruposActivity.this, EditorCartaGrupoActivity.class);
         intent.putExtra("conjunto", nomeConjunto);
         intent.putExtra("grupo", nomeGrupo);
+        intent.putExtra("numerocarta", nomeCarta);
+        intent.putExtra("frente", "");
+        intent.putExtra("verso", "");
+        intent.putExtra("elocal", "");
         startActivity(intent);
     }
 
@@ -80,6 +91,7 @@ public class EditorDeGruposActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
         adapterEditorGrupo = new AdapterEditorGrupo( this,listaDeCarta, nomeConjunto, nomeGrupo);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);

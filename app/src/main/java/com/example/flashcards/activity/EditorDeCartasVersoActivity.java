@@ -106,7 +106,6 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
         startActivityForResult(i, 1);
     }
 
-
     public void excvAudio(View view){
         excAudio.setVisibility(View.INVISIBLE);
         infoAudio.setText("");
@@ -117,15 +116,12 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
         editor.apply();
     }
 
-
-
     public void alteraBttAudio(String endereco){
         excAudio.setVisibility(View.VISIBLE);
         infoAudio.setText(endereco);
         infoAudio.setVisibility(View.VISIBLE);
         addAudio.setVisibility(View.INVISIBLE);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -137,7 +133,6 @@ public class EditorDeCartasVersoActivity extends AppCompatActivity {
             }
         }
     }
-
 
     public void addMaisUmaCarta(View view){
         Intent intent = new Intent(EditorDeCartasVersoActivity.this, EditorDeCartasActivity.class);

@@ -211,5 +211,19 @@
     <string name="grupo_edicao_texto_frente">Texto Frente</string>
     <string name="grupo_edicao_add_carta">+ Carta</string>
 
+    <!-- Textos da tela edição de carta de Grupo-->
+
+    <string name="grupo_carta_edicao_voltar">Voltar</string>
+    <string name="grupo_carta_edicao_texto_verso">Texto Verso</string>
+    <string name="grupo_carta_edicao_texto_frente">Texto Frente</string>
+    <string name="grupo_carta_edicao_add_carta">Salvar</string>
+    <string name="grupo_carta_edicao_add_nanexar">Anexar áudio</string>
+    <string name="grupo_carta_edicao_add_excluir">Excluir</string>
+    <string name="grupo_carta_toast_semarquivo">Falta anexar um arquivo de áudio</string>
+    <string name="grupo_carta_toast_semfrente">Falta digitar um texto para a frente do baralho</string>
+    <string name="grupo_carta_toast_semaverso">Falta digitar um texto para o verso do baralho</string>
+
+
+
 
 </resources>

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcards.R;
+import com.example.flashcards.activity.EditorCartaGrupoActivity;
 import com.example.flashcards.activity.EditorDeGruposActivity;
 import com.example.flashcards.model.CartaGrupo;
 
@@ -54,26 +55,31 @@ public class AdapterEditorGrupo extends RecyclerView.Adapter<AdapterEditorGrupo.
     }
 
     public static class EditGrupoViewHolder extends RecyclerView.ViewHolder{
-        TextView cartaFrente;
-        TextView cartaVerso;
-        TextView endWeb;
-        TextView endLocal;
-        TextView nome;
+        public TextView cartaFrente;
+        public TextView cartaVerso;
+        public TextView endWeb;
+        public TextView endLocal;
+        public TextView nome;
 
         public EditGrupoViewHolder(@NonNull  View itemView, Context context, String conjunto, String grupo) {
             super(itemView);
-            cartaFrente.findViewById(R.id.edb_txt_frente);
-            cartaVerso.findViewById(R.id.edb_txt_verso);
-            endWeb.findViewById(R.id.edb_txt_audiof);
-            endLocal.findViewById(R.id.edb_txt_audiov);
-            nome.findViewById(R.id.edb_txt_id);
+            cartaFrente = itemView.findViewById(R.id.edb_txt_frente);
+            cartaVerso = itemView.findViewById(R.id.edb_txt_verso);
+            endWeb = itemView.findViewById(R.id.edb_txt_audiof);
+            endLocal = itemView.findViewById(R.id.edb_txt_audiov);
+            nome = itemView.findViewById(R.id.edb_txt_id);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent irGrupo = new Intent(context, EditorDeGruposActivity.class);
+                    Intent irGrupo = new Intent(context, EditorCartaGrupoActivity.class);
                     irGrupo.putExtra("conjunto", conjunto);
                     irGrupo.putExtra("grupo", grupo);
+                    irGrupo.putExtra("numerocarta", nome.getText().toString());
+                    irGrupo.putExtra("frente", cartaFrente.getText().toString());
+                    irGrupo.putExtra("verso", cartaVerso.getText().toString());
+                    irGrupo.putExtra("elocal", endLocal.getText().toString());
+                    irGrupo.putExtra("eweb", endWeb.getText().toString());
                     context.startActivity(irGrupo);
                 }
             });
