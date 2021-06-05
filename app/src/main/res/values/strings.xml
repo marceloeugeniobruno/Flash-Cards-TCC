@@ -44,7 +44,8 @@
 
     <!-- Textos da tela Principal -->
     <string name="pri_btn_criar_baralho">Criar Baralho</string>
-
+    <string name="pri_menu_deslogar">Deslogar</string>
+    <string name="pri_menu_trocarsenha">Trocar Senha</string>
 
     <!-- Textos da tela Criar Baralho -->
 
@@ -222,8 +223,6 @@
     <string name="grupo_carta_toast_semarquivo">Falta anexar um arquivo de áudio</string>
     <string name="grupo_carta_toast_semfrente">Falta digitar um texto para a frente do baralho</string>
     <string name="grupo_carta_toast_semaverso">Falta digitar um texto para o verso do baralho</string>
-
-
 
 
 </resources>

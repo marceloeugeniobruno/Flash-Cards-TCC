@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/pri_menu_trocarsenha"
+        android:id="@+id/menu_trocasenha"
+    />
+    <item
+        android:title="@string/pri_menu_deslogar"
+        android:id="@+id/menu_deslogar"
+        />
+
+</menu>

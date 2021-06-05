@@ -9,7 +9,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.flashcards.R;
@@ -25,15 +26,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
     public final static String ARQUIVO_PREFERENCIAS = "arquivoPreferencia";
     private String email;
-    private DatabaseReference database = ConfiguracaoFirebase.getDatabase();
+    private final DatabaseReference database = ConfiguracaoFirebase.getDatabase();
     private DatabaseReference usuario;
     private ValueEventListener valueEventListenerUsuario;
-    private List<Baralho> listaDeBaralhos = new ArrayList<>();
+    private final List<Baralho> listaDeBaralhos = new ArrayList<>();
     private AdapterPrincipal adapterPrincipal;
     private SharedPreferences.Editor editor;
 
@@ -111,11 +113,11 @@ public class MainActivity extends AppCompatActivity {
             Intent inicial = new Intent(getApplicationContext(), InicialActivity.class);
             startActivity(inicial);
         }else{
-            email = Base64Custon.codificarBase64(autenticacao.getCurrentUser().getEmail());
+            email = Base64Custon.codificarBase64(Objects.requireNonNull(autenticacao.getCurrentUser().getEmail()));
             SharedPreferences preferences = getSharedPreferences(ARQUIVO_PREFERENCIAS, 0);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("emailBase64","");
-            editor.commit();
+            editor.apply();
         }
 
     }
@@ -126,10 +128,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onStop() {
         super.onStop();
         usuario.removeEventListener(valueEventListenerUsuario);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_principal, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_deslogar:
+                //TODO: Não esquecer de retirar os comentários das linhas abaixo ao finalizar o app
+                //FirebaseAuth autenticacao = ConfiguracaoFirebase.getAuth();
+                //autenticacao.signOut();
+                Intent intent = new Intent(MainActivity.this, InicialActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.menu_trocasenha:
+                Intent intent2 = new Intent(MainActivity.this, TrocaDeSenhaMainActivity.class);
+                intent2.putExtra("activite", "main");
+                startActivity(intent2);
+                break;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 }
