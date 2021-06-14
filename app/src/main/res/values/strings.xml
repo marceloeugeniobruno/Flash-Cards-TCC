@@ -120,7 +120,7 @@
     <string name="pbi_btn_iniciar">Iniciar Estudos</string>
     <string name="pbi_btn_add_carta">ADD Carta</string>
     <string name="pbi_btn_add_grupo">ADD Grupo</string>
-    <string name="pbi_btn_edt_grupo">EDT Conjunto</string>
+    <string name="pbi_btn_edt_grupo">EDT Conj.</string>
     <string name="pbi_btn_voltar">Início</string>
     <string name="pbi_btn_config">Config.</string>
     <string name="pbi_btn_editar">Editar</string>
@@ -181,7 +181,7 @@
     <string name="conj_btn_add">+</string>
     <string name="conj_voltar">Voltar</string>
     <string name="conj_btn_interroga">"?"</string>
-    <string name="conj_txt_listaconjuto">Lista de Conjuntos</string>
+    <string name="conj_txt_listaconjuto">Lista de Textos</string>
     <string name="conj_edt_nome">Nome do Conjunto</string>
     <string name="conj_toast">Nome do Conjunto não informado</string>
 
@@ -208,15 +208,15 @@
     <!-- Textos da tela edição de Grupo-->
 
     <string name="grupo_edicao_voltar">Voltar</string>
-    <string name="grupo_edicao_texto_verso">Texto Verso</string>
-    <string name="grupo_edicao_texto_frente">Texto Frente</string>
+    <string name="grupo_edicao_texto_verso">Frase do Verso</string>
+    <string name="grupo_edicao_texto_frente">Frase da Frente</string>
     <string name="grupo_edicao_add_carta">+ Carta</string>
 
     <!-- Textos da tela edição de carta de Grupo-->
 
     <string name="grupo_carta_edicao_voltar">Voltar</string>
-    <string name="grupo_carta_edicao_texto_verso">Texto Verso</string>
-    <string name="grupo_carta_edicao_texto_frente">Texto Frente</string>
+    <string name="grupo_carta_edicao_texto_verso">Frase do Verso</string>
+    <string name="grupo_carta_edicao_texto_frente">Frase da Frente</string>
     <string name="grupo_carta_edicao_add_carta">Salvar</string>
     <string name="grupo_carta_edicao_add_nanexar">Anexar áudio</string>
     <string name="grupo_carta_edicao_add_excluir">Excluir</string>
@@ -225,4 +225,12 @@
     <string name="grupo_carta_toast_semaverso">Falta digitar um texto para o verso do baralho</string>
 
 
+    <!-- Textos da apresentaçã de textos com áudio-->
+    <string name="tata">Voltar</string>
+
+    <!-- Textos da apresentação das cartas-->
+    <string name="tafc_mostrar">Mostrar</string>
+    <string name="tafc_errei">Errei</string>
+    <string name="tafc_dificil">difícil</string>
+    <string name="tafc_facil">Fácil</string>
 </resources>

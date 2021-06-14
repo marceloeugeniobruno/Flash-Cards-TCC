@@ -63,6 +63,7 @@ public class EditorCartaGrupoActivity extends AppCompatActivity {
             anexo.setText(R.string.grupo_carta_edicao_add_excluir);
             Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(i, 1);
+            //todo verificar problema da lina 65
         }else{
             anexo.setText(R.string.grupo_carta_edicao_add_nanexar);
             endereco.setText("");

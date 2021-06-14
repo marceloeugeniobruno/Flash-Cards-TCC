@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +24,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -68,36 +68,41 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
-
     public void movimentacao(){
-        RecyclerView recyclerView = findViewById(R.id.pri_rc);
-        //criação da lista
-        editor.putString("email",email);
-        editor.apply();
-        usuario = database.child(email);
-        valueEventListenerUsuario = usuario.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listaDeBaralhos.clear();
-                for(DataSnapshot dados: snapshot.getChildren()){
-                    Baralho baralho = dados.getValue(Baralho.class);
-                    listaDeBaralhos.add(baralho);
+        try {
+            RecyclerView recyclerView = findViewById(R.id.pri_rc);
+            //criação da lista
+            FirebaseAuth autenticacao = ConfiguracaoFirebase.getAuth();
+            email = Base64Custon.codificarBase64(Objects.requireNonNull(Objects.requireNonNull(autenticacao.getCurrentUser()).getEmail()));
+            editor.putString("email", email);
+            editor.apply();
+            usuario = database.child(email);
+            valueEventListenerUsuario = usuario.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    listaDeBaralhos.clear();
+                    for (DataSnapshot dados : snapshot.getChildren()) {
+                        Baralho baralho = dados.getValue(Baralho.class);
+                        listaDeBaralhos.add(baralho);
+                    }
+                    adapterPrincipal.notifyDataSetChanged();
                 }
-                adapterPrincipal.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                //TODO: Fazer tratamento de errro
-            }
-        });
-        //configuração do adapter
-        adapterPrincipal = new AdapterPrincipal(listaDeBaralhos, this);
-        //configuração da Recyclerview
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapterPrincipal);
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    //TODO: Fazer tratamento de errro
+                }
+            });
+            //configuração do adapter
+            adapterPrincipal = new AdapterPrincipal(listaDeBaralhos, this);
+            //configuração da Recyclerview
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setAdapter(adapterPrincipal);
+        }catch (Exception e){
+            Log.i("FIREBASE" , "Erro: " + e);
+        }
     }
 
     @Override
@@ -116,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             email = Base64Custon.codificarBase64(Objects.requireNonNull(autenticacao.getCurrentUser().getEmail()));
             SharedPreferences preferences = getSharedPreferences(ARQUIVO_PREFERENCIAS, 0);
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("emailBase64","");
+            editor.putString("emailBase64",email);
             editor.apply();
         }
 
@@ -131,7 +136,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        usuario.removeEventListener(valueEventListenerUsuario);
+        try {
+            usuario.removeEventListener(valueEventListenerUsuario);
+        }catch (Exception e){
+            Log.i("FIREBASE" , "Erro: " + e);
+        }
     }
 
     @Override

@@ -48,7 +48,7 @@ public class PerguntaSegundaAnimoActivity extends AppCompatActivity {
         if(tipo.equals("Comum")){
             proxima = new Intent(PerguntaSegundaAnimoActivity.this, CartaActivity.class);
         }else{
-            proxima = new Intent(PerguntaSegundaAnimoActivity.this, GrupoActivity.class);
+            proxima = new Intent(PerguntaSegundaAnimoActivity.this, TextoeAudiosActivity.class);
         }
 
         proxima.putExtra("nCartas", nCartas);

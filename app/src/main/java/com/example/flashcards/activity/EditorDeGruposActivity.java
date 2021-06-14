@@ -77,6 +77,7 @@ public class EditorDeGruposActivity extends AppCompatActivity {
                 .child("lista grupos")
                 .child(nomeGrupo)
                 .child("lista cartas");
+        //Todo resolver problema da linha 76
         valueEventListenerUsuario = usuario.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

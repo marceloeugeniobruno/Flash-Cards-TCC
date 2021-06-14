@@ -109,7 +109,7 @@ public class CriarBaralhoActivity extends AppCompatActivity {
                     } else if (rdFcIdIng.isChecked()) {
                         firebase.child(email).child(nome).setValue(baralho);
                         //TODO: Criar método para baixar grupos nativos do app
-                        Intent infIng = new Intent(getApplicationContext(), InformacaoIdiomasIngActivity.class);
+                        Intent infIng = new Intent(getApplicationContext(), InformacaoIdiomasActivity.class);
                         finish();
                         startActivity(infIng);
                     }
