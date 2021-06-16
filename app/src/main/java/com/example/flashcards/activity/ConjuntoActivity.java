@@ -161,6 +161,9 @@ public class ConjuntoActivity extends AppCompatActivity {
                     nomeConj.setText("");
                     oBtn();
                     Intent irGrupo = new Intent(ConjuntoActivity.this, GrupoActivity.class);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("conjunto", conjunto.getNome());
+                    editor.apply();
                     irGrupo.putExtra("conjunto", conjunto.getNome());
                     startActivity(irGrupo);
                 }

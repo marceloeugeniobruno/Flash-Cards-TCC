@@ -136,7 +136,7 @@ public class EditorCartaGrupoActivity extends AppCompatActivity {
                 firebase.child(preferences.getString("email", "EMAILVAZIO"))
                         .child(preferences.getString("nomeBaralho", "pasta"))
                         .child("lista conjunto")
-                        .child(dados.getString("conjunto"))
+                        .child(preferences.getString("conjunto", ""))
                         .child("lista grupos")
                         .child(dados.getString("grupo"))
                         .child("lista cartas")

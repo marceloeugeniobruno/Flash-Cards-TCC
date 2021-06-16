@@ -10,7 +10,6 @@ public class AuxiliarConjunto {
     public boolean isTermino() {
         return termino;
     }
-
     public void setTermino(boolean termino) {
         this.termino = termino;
     }

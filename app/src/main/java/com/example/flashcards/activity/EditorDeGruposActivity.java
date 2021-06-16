@@ -38,10 +38,11 @@ public class EditorDeGruposActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor_de_grupos);
-        Bundle dados = getIntent().getExtras();
-        nomeConjunto = dados.getString("conjunto");
-        nomeGrupo = dados.getString("grupo");
         preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
+        Bundle dados = getIntent().getExtras();
+        nomeConjunto = preferences.getString("conjunto", "");
+        nomeGrupo = dados.getString("grupo");
+
     }
 
     public void edgVoltar(View view){

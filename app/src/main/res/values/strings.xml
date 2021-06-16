@@ -226,7 +226,7 @@
 
 
     <!-- Textos da apresentaçã de textos com áudio-->
-    <string name="tata">Voltar</string>
+    <string name="tata_Avançar">Avançar</string>
 
     <!-- Textos da apresentação das cartas-->
     <string name="tafc_mostrar">Mostrar</string>

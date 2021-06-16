@@ -2,16 +2,19 @@ package com.example.flashcards.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcards.R;
 import com.example.flashcards.activity.EditorDeGruposActivity;
+import com.example.flashcards.activity.MainActivity;
 import com.example.flashcards.model.Grupo;
 
 import java.util.List;
@@ -59,6 +62,8 @@ public class AdapterGrupo extends RecyclerView.Adapter<AdapterGrupo.GrupoViewHol
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    Toast.makeText(context, conjunto,Toast.LENGTH_LONG).show();
                     String nome = nomeGrupo.getText().toString();
                     Intent irGrupo = new Intent(context, EditorDeGruposActivity.class);
                     irGrupo.putExtra("conjunto", conjunto);
