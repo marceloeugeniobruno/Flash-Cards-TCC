@@ -59,9 +59,13 @@ public class AdapterConjunto extends RecyclerView.Adapter<AdapterConjunto.Conjun
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    SharedPreferences preferences = context.getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
+                    SharedPreferences.Editor editor = preferences.edit();
                     String nome = nomeConjunto.getText().toString();
                     Intent irGrupo = new Intent(context, GrupoActivity.class);
                     irGrupo.putExtra("conjunto", nome);
+                    editor.putString("conjunto", nome);
+                    editor.apply();
                     context.startActivity(irGrupo);
                 }
             });
