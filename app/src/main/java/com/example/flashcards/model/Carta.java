@@ -17,6 +17,7 @@ public class Carta {
     private String endVideoVerso;
     private String nomeBaralho;
     private int dias;
+    private int diaA;
     private int multiplicador;
     private String endAudioFrenteWeb;
     private String endAudioVersoWeb;
@@ -38,6 +39,7 @@ public class Carta {
         this.endAudioVersoWeb = endAudioVersoWeb;
     }
 
+
     public String getNomeBaralho() {
         return nomeBaralho;
     }
@@ -57,6 +59,7 @@ public class Carta {
         DatabaseReference cartaRef = ConfiguracaoFirebase.getDatabase()
                 .child(email).child(nomeBaralho).child("listaCartas");
         setIdentificador( cartaRef.push().getKey() );
+        errei();
     }
     public Carta (){
         //contrutor é utilizada para ler as cartas no banco de dados
@@ -66,16 +69,26 @@ public class Carta {
     public void errei (){
         this.dias = 0;
         this.multiplicador = 0;
+        this.diaA = 0;
+
     }
 
     public void dificil (){
         this.multiplicador++;
-        this.dias = this.dias * multiplicador;
+        this.diaA = this.diaA * multiplicador;
+        if(diaA == 0){
+            diaA = 1;
+        }
+        this.dias = diaA;
     }
 
     public void facil (){
         this.multiplicador = this.multiplicador + 2;
-        this.dias = this.dias * multiplicador;
+        this.diaA = this.diaA * multiplicador;
+        if(diaA == 0){
+            diaA = 2;
+        }
+        this.dias = diaA;
     }
 
 
@@ -173,5 +186,9 @@ public class Carta {
 
     public void setOrdem(int ordem) {
         this.ordem = ordem;
+    }
+
+    public int getDiaA() {
+        return diaA;
     }
 }

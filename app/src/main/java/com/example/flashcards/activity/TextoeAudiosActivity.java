@@ -11,6 +11,8 @@ import com.example.flashcards.config.ConfiguracaoFirebase;
 import com.example.flashcards.helper.Base64Custon;
 import com.example.flashcards.model.AuxiliarConjunto;
 import com.example.flashcards.model.Baralho;
+import com.example.flashcards.model.Carta;
+import com.example.flashcards.model.CartaGrupo;
 import com.example.flashcards.model.Conjunto;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -34,9 +37,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import static com.example.flashcards.R.color.azul_claro;
+
 
 public class TextoeAudiosActivity extends AppCompatActivity {
-    private FirebaseAuth autenticacao = ConfiguracaoFirebase.getAuth();
     private final DatabaseReference database = ConfiguracaoFirebase.getDatabase();
     private DatabaseReference usuario;
     private ValueEventListener valueEventListenerUsuario;
@@ -52,13 +56,21 @@ public class TextoeAudiosActivity extends AppCompatActivity {
     private TextView texto7;
     private TextView texto8;
     private int funcao;
+    private int proximo;
+    private int proximo2;
     private Button avancar;
     private String textoParaEstudar;
-    private String aux;
+    private boolean aux;
     private boolean booleanAux = true;
-    private final List<Conjunto> listaParaaudios = new ArrayList<>();
-    private final List<Conjunto> listaDeTextos = new ArrayList<>();
-    private final List <AuxiliarConjunto> ax = new ArrayList<>();
+    private boolean ulttimoparagrafo;
+    private final List<String> listaDeParagrafos = new ArrayList<>();//
+    private final List<Conjunto> listaDeTextos = new ArrayList<>();//todo ok
+
+    private final List<String> listaDeAudiosTexto = new ArrayList<>();
+    private final List<String> listaDeAudiosTextoAux = new ArrayList<>();
+    private final List<String> listaDeAudiosParagrafos = new ArrayList<>();
+    private final List<String> listaDeTextosFrente = new ArrayList<>();
+    private final List<String> listaDetextosVerso = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,20 +85,28 @@ public class TextoeAudiosActivity extends AppCompatActivity {
         texto6 = findViewById(R.id.tata_tx_6);
         texto7 = findViewById(R.id.tata_tx_7);
         texto8 = findViewById(R.id.tata_tx_8);
+        listaDeAudiosTexto.clear();
         funcao = 0;
+        proximo  = 0;
+        proximo2  = 0;
+        ulttimoparagrafo = false;
         avancar = findViewById(R.id.tata_btn_avancar);
         preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("TA_aux", "sem_texto");
+        editor.putString("TA_aux_P", "sem_texto");
+        editor.apply();
+        aux = true;
 
         usuario = database
                 .child(preferences.getString("email",""))
                 .child(preferences.getString("nomeBaralho", ""))
                 .child("lista conjunto");
-        tataListarConjunto();
+
+            tataListarConjunto();
     }
 
     public void tataAvancar(View view){
-
-
         avancar.setEnabled(false);
         switch (funcao) {
             case 0:
@@ -107,80 +127,288 @@ public class TextoeAudiosActivity extends AppCompatActivity {
             case 5:
                 funcaoCinco();
                 break;
+            case 6:
+                funcaoSeis();
+                break;
+            case 7:
+                funcaoSete();
+                break;
+            case 8:
+                funcaoOito();
         }
         avancar.setEnabled(true);
     }
 
     public void funcaoZero() {
-
-        qualTexto();
-        qualParagrafo();
-        //tataListarParagrafos();
-        //tataTocarAudios();
-        funcao = 1;
+        while (aux) {
+            qualTexto();
+            funcao = 1;
+            funcaoUm();
+            funcaoDois();
+            if(listaDeTextos.size()>0){
+                aux = false;
+            }
+        }
     }
-
-    private void qualParagrafo() {
-    }
-
     public void funcaoUm() {
-        //TODO: pegar uma frase da fila e mostrar na tx 1 o texto em ingles (frente da carta),
-        //TODO: e colocar na tx_2 o verso da carta
-        //TODO:executar o áudio e salvar o nome do paragrafo para que os botões de audio saiba o áudio
-        //TODO:qual é o arquivo de áudio
-        //TODO:marca a frase como true, e Verificar se é a ultima carta da fila: se sim, segue para
-        //TODO:a proxima fase: Se não função
-
+        tataListarParagrafos();
+        if (listaDeParagrafos.size()>0){
+            qualParagrafo();
+            funcao = 2;
+        }
         avancar.setEnabled(true);
     }
     public void funcaoDois(){
-        //TODO: como o marcador está true vamos utillo de forma contrária
-        //TODO: pegar uma frase da fila e mostrar na tx_1 o texto em ingles (frente da carta),
-        //TODO: e colocar na tx_2 o verso da carta (verso texto)
-        //TODO: pegar a próxima carta da fila frase da fila e mostrar na tx_3 o texto em ingles (frente da carta),
-        //TODO: e colocar na tx_4 o verso da carta (verso texto)
-        //TODO: pegar a próxima carta da fila frase da fila e mostrar na tx_5 o texto em ingles (frente da carta),
-        //TODO: e colocar na tx_6 o verso da carta (verso texto)
-        //TODO: pegar a próxima carta da fila frase da fila e mostrar na tx_7 o texto em ingles (frente da carta),
-        //TODO: e colocar na tx_8 o verso da carta (verso texto)
-        //TODO: Negritar o TX_1 e o TX_2 e tocar o áudio da frase da TX_1
-
-        //TODO: Trocar a frase da tx_1 pela frase da tx_3 / a tx_2 pl tx_4 .... e para a TX_7 e TX_8 pegar a proxima frase se tiver
-        //TODO: fazer essse processo até que o último áudio do texto seja tocado
-        //TODO: sempre colocar um dalay entre a troca de áudios
-
+        //Todo fazer as listas
+        booleanAux = true;
+        for(int i = 0; i < listaDeParagrafos.size(); i++) {
+            if(booleanAux) {criarListas(listaDeParagrafos.get(i));}
+            if(listaDeParagrafos.get(i).equals(preferences.getString("TA_aux_P","falso"))){
+                listaDeAudiosTexto.addAll(listaDeAudiosTextoAux);
+                booleanAux = false;
+                funcao = 3;
+            }
+        }
         avancar.setEnabled(true);
     }
     public void funcaoTres(){
-        //TODO: semelhante  função dois, mas somente com os textos (frente)
+        for(int i = 0; i < listaDeAudiosTexto.size();i++){
+            //todo tocar audios;
+            Log.i("MARCELO LAT", listaDeAudiosParagrafos.get(i) + "");
+        }
         funcao = 4;
         avancar.setEnabled(true);
     }
     public void funcaoQuatro(){
-        //TODO: igual a função zero
-        //TODO: transforma todas as frases em cartas para o baralho.
-        Intent intent = new Intent(TextoeAudiosActivity.this, CartaActivity.class);
-        startActivity(intent);
-        finish();
+        if (proximo < listaDeTextosFrente.size()){
+            texto1.setText(listaDeTextosFrente.get(proximo));
+            texto2.setText(listaDetextosVerso.get(proximo));
+            //todo: Log.i("MARCELO LAP", listaDeAudiosParagrafos.size() + "");
+            proximo++;
+        }else {
+            funcao = 5;
+            proximo = 0;
+            texto1.setText("");
+            texto2.setText("");
+        }
     }
     public void funcaoCinco(){
-        //TODO: fazer um alert dialog informando para o usuário que não há mais textos para estudar
+
+        //todo : colocar essa função dentro de um for(int i = 0; i < listaDeTextosFrente.size(); i ++)
+        if (proximo < listaDeTextosFrente.size()){
+            texto1.setText(listaDeTextosFrente.get(proximo));
+            texto2.setText(listaDetextosVerso.get(proximo));
+            texto1.setTextSize(30);
+            texto2.setTextSize(30);
+
+            //todo: Log.i("MARCELO LAP", listaDeAudiosParagrafos.size() + "");
+        }else{
+            texto1.setText("");
+            texto2.setText("");
+            texto1.setTextSize(20);
+            texto2.setTextSize(20);
+            funcao = 6;
+        }
+        if (proximo + 1 < listaDeTextosFrente.size()){
+            texto3.setText(listaDeTextosFrente.get(proximo + 1));
+            texto4.setText(listaDetextosVerso.get(proximo + 1));
+            texto3.setTextSize(15);
+            texto4.setTextSize(15);
+        }else{
+            texto3.setText("");
+            texto4.setText("");
+
+        }
+        if (proximo  + 2 < listaDeTextosFrente.size()){
+            texto5.setText(listaDeTextosFrente.get(proximo + 2));
+            texto6.setText(listaDetextosVerso.get(proximo + 2));
+            texto5.setTextSize(12);
+            texto6.setTextSize(12);
+        }else{
+            texto5.setText("");
+            texto6.setText("");
+
+        }
+        if (proximo  + 3 < listaDeTextosFrente.size()){
+            texto7.setText(listaDeTextosFrente.get(proximo + 3));
+            texto8.setText(listaDetextosVerso.get(proximo + 3));
+            texto7.setTextSize(8);
+            texto8.setTextSize(8);
+        }else{
+            texto7.setText("");
+            texto8.setText("");
+
+        }
+        proximo ++;
+    }
+    private void funcaoSeis() {
+        //todo : colocar essa função dentro de um for(int i = 0; i < listaDeTextosFrente.size(); i ++)
+        if (proximo2 < listaDeTextosFrente.size()){
+            texto1.setText(listaDeTextosFrente.get(proximo2));
+            texto1.setTextSize(30);
+            //todo: Log.i("MARCELO LAP", listaDeAudiosParagrafos.size() + "");
+        }else{
+            texto1.setText("");
+            texto1.setTextSize(20);
+            funcao = 7;
+        }
+        if (proximo2 + 1 < listaDeTextosFrente.size()){
+            texto2.setText(listaDeTextosFrente.get(proximo2 + 1));
+            texto2.setTextSize(15);
+        }else{
+            texto2.setText("");
+        }
+
+        if (proximo2 + 2 < listaDeTextosFrente.size()){
+            texto3.setText(listaDeTextosFrente.get(proximo2 + 2));
+            texto3.setTextSize(12);
+        }else{
+            texto3.setText("");
+        }
+
+        if (proximo2 + 3 < listaDeTextosFrente.size()){
+            texto3.setText(listaDeTextosFrente.get(proximo2 + 3));
+            texto3.setTextSize(10);
+        }else{
+            texto3.setText("");
+        }
+
+        if (proximo2 + 4 < listaDeTextosFrente.size()){
+            texto4.setText(listaDeTextosFrente.get(proximo2 + 4));
+            texto4.setTextSize(8);
+        }else{
+            texto4.setText("");
+        }
+
+        if (proximo2 + 5 < listaDeTextosFrente.size()){
+            texto5.setText(listaDeTextosFrente.get(proximo2 + 5));
+            texto5.setTextSize(6);
+        }else{
+            texto5.setText("");
+        }
+
+        if (proximo2 + 6 < listaDeTextosFrente.size()){
+            texto6.setText(listaDeTextosFrente.get(proximo2 + 6));
+            texto6.setTextSize(6);
+        }else{
+            texto6.setText("");
+        }
+
+        if (proximo2 + 7 < listaDeTextosFrente.size()){
+            texto7.setText(listaDeTextosFrente.get(proximo2 + 7));
+            texto7.setTextSize(6);
+        }else{
+            texto7.setText("");
+        }
+
+        if (proximo2 + 8 < listaDeTextosFrente.size()){
+            texto8.setText(listaDeTextosFrente.get(proximo2 + 8));
+            texto5.setTextSize(6);
+        }else{
+            texto8.setText("");
+        }
+        proximo2++;
+    }
+    public void funcaoSete(){
+        for(int i = 0; i < listaDeAudiosTexto.size(); i++){
+            //todo tocar audios;
+            Log.i("MARCELO LAT", listaDeAudiosParagrafos.get(i) + "");
+        }
+        funcao = 8;
+        avancar.setEnabled(true);
+    }
+    private void funcaoOito() {
+        String confere = preferences.getString("TA_aux_P", "ERRO");
+        String confereUltimoP = listaDeParagrafos.get(listaDeParagrafos.size()-1);
+        for(int i = 0; i < listaDeTextosFrente.size(); i++ ){
+            Carta carta = new Carta(preferences.getString("nomeBaralho", "erro"));
+            carta.setDias(0);
+            carta.setOrdem(0);
+            carta.setMultiplicador(0);
+            carta.setTextoFrente(listaDeTextosFrente.get(i));
+            carta.setTextoVerso(listaDetextosVerso.get(i));
+            carta.setEndAudioFrente(listaDeAudiosParagrafos.get(i));
+            database.child(preferences.getString("email", "erro"))
+                    .child(preferences.getString("nomeBaralho", "erro"))
+                    .child("listaCartas")
+                    .child(carta.getIdentificador())
+                    .setValue(carta);
+        }
+        AuxiliarConjunto auxiliarConjunto = new AuxiliarConjunto(true);
+        database.child(preferences.getString("email", "erro"))
+                .child(preferences.getString("nomeBaralho", "erro"))
+                .child("lista conjunto")
+                .child(preferences.getString("conjunto", "ERRO"))
+                .child("lista grupos")
+                .child(preferences.getString("TA_aux_P", "ERRO"))
+                .child("termino")
+                .setValue(auxiliarConjunto);
+        if(confere.equals(confereUltimoP)){
+            ulttimoparagrafo = true;
+        }
+        if (ulttimoparagrafo){
+            database.child(preferences.getString("email", "erro"))
+                    .child(preferences.getString("nomeBaralho", "erro"))
+                    .child("lista conjunto")
+                    .child(preferences.getString("conjunto", "ERRO"))
+                    .child("termino")
+                    .setValue(auxiliarConjunto);
+        }
+        //TODO fazer o if para também fazer o true para o conjunto se este for o último parágrafo
+        funcaoX();
+    }
+    private void criarListas(String s) {
+        //TODO Estou trabalhando aqui
+        valueEventListenerUsuario = usuario
+                .child(preferences.getString("TA_aux", "ERRRO"))
+                .child("lista grupos")
+                .child(s)
+                .child("lista cartas")
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listaDeAudiosParagrafos.clear();
+                listaDeTextosFrente.clear();
+                listaDetextosVerso.clear();
+                for (DataSnapshot dados : dataSnapshot.getChildren()) {
+                    CartaGrupo carta = dados.getValue(CartaGrupo.class);
+                    listaDeAudiosTextoAux.add(carta.getEndWeb());
+                    listaDeAudiosParagrafos.add(carta.getEndWeb());
+                    listaDeTextosFrente.add(carta.getFrente());
+                    listaDetextosVerso.add(carta.getVerso());
+
+                    Log.i("MARCELO LAT", carta.getEndWeb() + "");
+                    Log.i("MARCELO LAP", carta.getEndWeb() + "");
+                    Log.i("MARCELO LTF", carta.getFrente() + "");
+                    Log.i("MARCELO LTV", carta.getVerso() + "");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException());
+            }
+        });
+
+
+    }
+    public void funcaoX(){
         Intent intent = new Intent(TextoeAudiosActivity.this, CartaActivity.class);
         startActivity(intent);
         finish();
+    }
 
-    }
-    public void salvarCartas(){
-        //TODO: Salvar as cartas na lista de cartas do baralho
-    }
+
     public void tataListarParagrafos(){
-        valueEventListenerUsuario = usuario.addValueEventListener(new ValueEventListener() {
+        Log.i("Marcelo Salvou",preferences.getString("TA_aux", "ERRRO"));
+        valueEventListenerUsuario = usuario.child(preferences.getString("TA_aux", "ERRRO")).child("lista grupos").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                listaDeTextos.clear();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listaDeParagrafos.clear();
                 for (DataSnapshot dados : dataSnapshot.getChildren()) {
                     Conjunto baralho = dados.getValue(Conjunto.class);
-                    listaDeTextos.add(baralho);
+                    listaDeParagrafos.add(baralho.getNome());
                 }
             }
 
@@ -191,7 +419,6 @@ public class TextoeAudiosActivity extends AppCompatActivity {
             }
         });
     }
-
     public void tataListarConjunto(){
         // Read from the database
         valueEventListenerUsuario = usuario.addValueEventListener(new ValueEventListener() {
@@ -219,7 +446,6 @@ public class TextoeAudiosActivity extends AppCompatActivity {
     }
 
     public void pegaTexto(String algo){
-        final String[] teste = {"teste"};
         usuario.child(algo).child("termino").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -231,6 +457,10 @@ public class TextoeAudiosActivity extends AppCompatActivity {
                     if (agoravai.equals("{termino=false}")){
                         if(booleanAux) {
                             textoParaEstudar = algo;
+                            Log.i("Marcelo Entrada",algo);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("TA_aux", algo);
+                            editor.apply();
                             booleanAux = false;
                         }
                     }
@@ -239,6 +469,39 @@ public class TextoeAudiosActivity extends AppCompatActivity {
         });
     }
 
+    private void qualParagrafo() {
+        booleanAux = true;
+        for(int i = 0; i < listaDeParagrafos.size(); i++){
+            pegaParagrafo(listaDeParagrafos.get(i));
+        }
+    }
+
+    private void pegaParagrafo(String s) {
+        usuario.child(preferences.getString("TA_aux", "ERRO"))
+                .child("lista grupos")
+                .child(s)
+                .child("termino")
+                .get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    String agoravai = String.valueOf(task.getResult().getValue());
+                    if (agoravai.equals("{termino=false}")){
+                        if(booleanAux) {
+                            Log.i("Marcelo paragrafo",s);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("TA_aux_P", s);
+                            editor.apply();
+                            booleanAux = false;
+                        }
+                    }
+                }
+            }
+        });
+    }
     @Override
     protected void onStop() {
         super.onStop();

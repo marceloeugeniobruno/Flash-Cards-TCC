@@ -12,13 +12,14 @@ public class PerguntaSegundaAnimoActivity extends AppCompatActivity {
 
     private String tipo;
     private int nCartas;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pergunta_segunda_animo);
         Bundle dados = getIntent().getExtras();
-        SharedPreferences preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
+        preferences = getSharedPreferences(MainActivity.ARQUIVO_PREFERENCIAS, 0);
         nCartas = dados.getInt("nCartas");
         tipo = preferences.getString("tipoBaralho", "");
     }
@@ -51,7 +52,9 @@ public class PerguntaSegundaAnimoActivity extends AppCompatActivity {
             proxima = new Intent(PerguntaSegundaAnimoActivity.this, TextoeAudiosActivity.class);
         }
 
-        proxima.putExtra("nCartas", nCartas);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("nCartas", nCartas);
+        editor.apply();
         finish();
         startActivity(proxima);
     }
